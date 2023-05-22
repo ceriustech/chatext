@@ -1,4 +1,4 @@
-(function () {
+((function () {
 	const stateCheck = setInterval(function () {
 		if (document.readyState === 'complete') {
 			clearInterval(stateCheck);
@@ -69,4 +69,5 @@
 			}
 		}
 	});
-})();
+}),
+1000)();
