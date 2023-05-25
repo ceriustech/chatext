@@ -2,31 +2,55 @@ class DownloadButton extends HTMLElement {
 	constructor() {
 		super();
 		this.attachShadow({ mode: 'open' });
+
+		const style = document.createElement('style');
+		style.textContent = `
+        .button {
+            background-color: green;
+            color: white;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            margin: 5px auto;
+            width: 100px;
+        }
+
+        .button:hover {
+          cursor: pointer;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background-color: blue;
+        }
+
+        .progress-container {
+          width: 100%;
+          height: 6px;
+          border: 1px solid #000;
+        }
+    `;
+
+		this.shadowRoot.appendChild(style);
 		this.fileInput = document.createElement('input');
 		this.fileInput.type = 'file';
 		this.fileInput.accept =
 			'.txt, .js, .py, .html, .css, .json, .csv, .docx, .pdf';
 
 		this.progressContainer = document.createElement('div');
-		this.progressContainer.style.width = '100%';
-		this.progressContainer.style.height = '6px';
-		this.progressContainer.style.border = '1px solid black';
+		this.progressContainer.classList.add('progress-container');
 
 		this.progressBar = document.createElement('div');
+		this.progressBar.classList.add('progress-bar');
 		this.progressBar.style.width = '0%';
 		this.progressBar.style.height = '100%';
 		this.progressBar.style.backgroundColor = 'blue';
 
 		this.progressContainer.appendChild(this.progressBar);
 		this.button = document.createElement('button');
+		this.button.classList.add('button');
 		this.button.textContent = 'Submit File';
-		this.button.style.backgroundColor = 'green';
-		this.button.style.color = 'white';
-		this.button.style.padding = '5px';
-		this.button.style.border = 'none';
-		this.button.style.borderRadius = '5px';
-		this.button.style.margin = '5px auto';
-		this.button.style.width = '100px';
 	}
 
 	connectedCallback() {
