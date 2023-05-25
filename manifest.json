@@ -8,5 +8,6 @@
 			"matches": ["<all_urls>"],
 			"js": ["content.js"]
 		}
-	]
+	],
+	"web_accessible_resources": ["DownloadButton.js"]
 }
