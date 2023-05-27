@@ -1,11 +1,11 @@
-class DownloadButton extends HTMLElement {
+class ChatExtContainer extends HTMLElement {
 	constructor() {
 		super();
 		this.attachShadow({ mode: 'open' });
 
 		const style = document.createElement('style');
 		style.textContent = `
-        .button {
+        .chat-ext-button {
             background-color: green;
             color: white;
             padding: 5px;
@@ -15,17 +15,17 @@ class DownloadButton extends HTMLElement {
             width: 100px;
         }
 
-        .button:hover {
+        .chat-ext-button:hover {
           cursor: pointer;
         }
 
-        .progress-bar {
+        .chat-ext-progress-bar {
             width: 0%;
             height: 100%;
             background-color: blue;
         }
 
-        .progress-container {
+        .chat-ext-progress-container {
           width: 100%;
           height: 6px;
           border: 1px solid #000;
@@ -39,17 +39,17 @@ class DownloadButton extends HTMLElement {
 			'.txt, .js, .py, .html, .css, .json, .csv, .docx, .pdf';
 
 		this.progressContainer = document.createElement('div');
-		this.progressContainer.classList.add('progress-container');
+		this.progressContainer.classList.add('chat-ext-progress-container');
 
 		this.progressBar = document.createElement('div');
-		this.progressBar.classList.add('progress-bar');
+		this.progressBar.classList.add('chat-ext-progress-bar');
 		this.progressBar.style.width = '0%';
 		this.progressBar.style.height = '100%';
 		this.progressBar.style.backgroundColor = 'blue';
 
 		this.progressContainer.appendChild(this.progressBar);
 		this.button = document.createElement('button');
-		this.button.classList.add('button');
+		this.button.classList.add('chat-ext-button');
 		this.button.textContent = 'Submit File';
 	}
 
@@ -92,4 +92,4 @@ class DownloadButton extends HTMLElement {
 	}
 }
 
-customElements.define('download-button', DownloadButton);
+customElements.define('chat-ext-container', ChatExtContainer);

@@ -9,5 +9,5 @@
 			"js": ["content.js"]
 		}
 	],
-	"web_accessible_resources": ["DownloadButton.js"]
+	"web_accessible_resources": ["ChatExtContainer.js"]
 }
