@@ -10,7 +10,7 @@
 				// Create a new script element
 				const script = document.createElement('script');
 				// Set the source of the script to your ChatExtContainer.js file
-				script.src = chrome.runtime.getURL('ChatExtContainer.js');
+				script.src = chrome.runtime.getURL('client/ChatExtContainer.js');
 				// Append it to the document head
 				document.head.appendChild(script);
 
