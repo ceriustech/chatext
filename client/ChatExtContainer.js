@@ -6,8 +6,9 @@ class ChatExtContainer extends HTMLElement {
 		const style = document.createElement('style');
 		style.textContent = `
         .chat-ext-button {
-            background-color: green;
-            color: white;
+            background-color: #A838B5;
+            color: #fff;
+						font-weight: 700;
             padding: 5px;
             border: none;
             border-radius: 5px;
@@ -22,7 +23,6 @@ class ChatExtContainer extends HTMLElement {
         .chat-ext-progress-bar {
             width: 0%;
             height: 100%;
-            background-color: blue;
         }
 
         .chat-ext-progress-container {
@@ -88,15 +88,14 @@ class ChatExtContainer extends HTMLElement {
 				return;
 			}
 
-			const enterKeyEvent = new KeyboardEvent('keyup', {
-				bubbles: true,
-				cancelable: true,
-				key: 'Enter',
-			});
-
 			textarea.value = `Part ${part} of ${filename}: \n\n ${text}`;
 
-			textarea.dispatchEvent(enterKeyEvent);
+			// Create and dispatch an 'input' event on the textarea
+			const inputEvent = new Event('input', {
+				bubbles: true,
+				cancelable: true,
+			});
+			textarea.dispatchEvent(inputEvent);
 		} catch (error) {
 			console.error('Error in submitConversation:', error);
 		}
