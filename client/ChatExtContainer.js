@@ -81,14 +81,25 @@ class ChatExtContainer extends HTMLElement {
 	}
 
 	async submitConversation(text, part, filename) {
-		const textarea = document.querySelector("textarea[tabindex='0']");
-		const enterKeyEvent = new KeyboardEvent('keydown', {
-			bubbles: true,
-			cancelable: true,
-			keyCode: 13,
-		});
-		textarea.value = `Part ${part} of ${filename}: \n\n ${text}`;
-		textarea.dispatchEvent(enterKeyEvent);
+		try {
+			const textarea = document.querySelector('#prompt-textarea');
+			if (!textarea) {
+				console.error('Textarea not found');
+				return;
+			}
+
+			const enterKeyEvent = new KeyboardEvent('keyup', {
+				bubbles: true,
+				cancelable: true,
+				key: 'Enter',
+			});
+
+			textarea.value = `Part ${part} of ${filename}: \n\n ${text}`;
+
+			textarea.dispatchEvent(enterKeyEvent);
+		} catch (error) {
+			console.error('Error in submitConversation:', error);
+		}
 	}
 }
 
