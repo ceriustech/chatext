@@ -88,14 +88,23 @@ class ChatExtContainer extends HTMLElement {
 				return;
 			}
 
-			textarea.value = `Part ${part} of ${filename}: \n\n ${text}`;
-
 			// Create and dispatch an 'input' event on the textarea
 			const inputEvent = new Event('input', {
 				bubbles: true,
 				cancelable: true,
 			});
+
+			textarea.value = `Part ${part} of ${filename}: \n\n ${text}`;
+
 			textarea.dispatchEvent(inputEvent);
+
+			const submitButton = document.querySelector(
+				'button[style*="background-color: rgb(25, 195, 125)"]'
+			);
+
+			if (submitButton) {
+				submitButton.click();
+			}
 		} catch (error) {
 			console.error('Error in submitConversation:', error);
 		}
