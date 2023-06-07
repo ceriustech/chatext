@@ -6,14 +6,14 @@ class ChatExtContainer extends HTMLElement {
 		const style = document.createElement('style');
 		style.textContent = `
         .chat-ext-button {
-            background-color: #A838B5;
-            color: #fff;
+            background-color: #D1D5DB;
+            color: #7e1e89;
 						font-weight: 700;
             padding: 5px;
             border: none;
             border-radius: 5px;
-            margin: 5px auto;
-            width: 100px;
+            margin: 0 auto 10px;
+            width: 150px;
         }
 
         .chat-ext-button:hover {
@@ -26,10 +26,17 @@ class ChatExtContainer extends HTMLElement {
         }
 
         .chat-ext-progress-container {
-          width: 100%;
+          width: 90%;
           height: 6px;
           border: 1px solid #000;
+					margin-bottom: 10px;
         }
+
+				@media screen and (max-width: 768px) {
+					chat-ext-progress-container {
+						padding: 0 12px;
+					}
+				}
     `;
 
 		this.shadowRoot.appendChild(style);
@@ -50,7 +57,7 @@ class ChatExtContainer extends HTMLElement {
 		this.progressContainer.appendChild(this.progressBar);
 		this.button = document.createElement('button');
 		this.button.classList.add('chat-ext-button');
-		this.button.textContent = 'Submit File';
+		this.button.textContent = 'Submit File To Chat';
 	}
 
 	connectedCallback() {
@@ -98,13 +105,21 @@ class ChatExtContainer extends HTMLElement {
 
 			textarea.dispatchEvent(inputEvent);
 
-			const submitButton = document.querySelector(
+			let submitButton;
+			const target = document.querySelector(
 				'button[style*="background-color: rgb(25, 195, 125)"]'
 			);
 
-			if (submitButton) {
-				submitButton.click();
+			if (target) {
+				submitButton = document.querySelector(
+					'button[style*="background-color: rgb(25, 195, 125)"]'
+				);
+			} else {
+				submitButton = document.querySelector(
+					'button[style*="background-color: rgb(171, 104, 255)"]'
+				);
 			}
+			submitButton.click();
 		} catch (error) {
 			console.error('Error in submitConversation:', error);
 		}
