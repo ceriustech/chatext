@@ -68,22 +68,51 @@ class ChatExtContainer extends HTMLElement {
 
 	async handleClick() {
 		this.fileInput.click();
-		this.fileInput.addEventListener('change', async (event) => {
+
+		// Define a function to handle file change asynchronously
+		const handleFileChange = async (event) => {
+			// Get the selected file from the file input element
 			const file = event.target.files[0];
+
+			// Read the contents of the file as text
 			const text = await file.text();
+
+			// Split the text into chunks of up to 15000 characters
 			const chunks = text.match(/[\s\S]{1,15000}/g);
-			for (let i = 0; i < chunks.length; i++) {
-				await this.submitConversation(chunks[i], i + 1, file.name);
-				this.progressBar.style.width = `${((i + 1) / chunks.length) * 100}%`;
-				let chatgptReady = false;
-				while (!chatgptReady) {
-					await new Promise((resolve) => setTimeout(resolve, 1000));
-					chatgptReady = !document.querySelector(
-						'.text-2xl > span:not(.invisible)'
-					);
-				}
+
+			// Iterate over each chunk and submit the conversation
+			for (const [index, chunk] of chunks.entries()) {
+				// Submit the current chunk of the conversation along with its index and file name
+				await this.submitConversation(chunk, index + 1, file.name);
+
+				// Update the progress bar width based on the current chunk's index
+				this.progressBar.style.width = `${
+					((index + 1) / chunks.length) * 100
+				}%`;
+
+				// Wait for chatGPT to be ready before processing the next chunk
+				await this.waitForChatGPTReady();
 			}
+
+			// Set the progress bar background color to green when all chunks are processed
 			this.progressBar.style.backgroundColor = 'green';
+		};
+
+		// Add the handleFileChange function as a 'change' event listener to the file input element
+		this.fileInput.addEventListener('change', handleFileChange);
+	}
+
+	async waitForChatGPTReady() {
+		// Create and return a new promise
+		return new Promise((resolve) => {
+			// Set an interval that repeatedly checks if chatGPT is ready
+			const interval = setInterval(() => {
+				// If chatGPT is ready (the desired element is not found), clear the interval and resolve the promise
+				if (!document.querySelector('.text-2xl > span:not(.invisible)')) {
+					clearInterval(interval);
+					resolve();
+				}
+			}, 1000);
 		});
 	}
 
