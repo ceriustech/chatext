@@ -1,0 +1,13 @@
+{
+	"name": "ChatExt",
+	"version": "1.0.0",
+	"private": true,
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "Bilal Masters",
+	"license": "ISC",
+	"dependencies": {
+		"haunted": "^5.0.0"
+	}
+}

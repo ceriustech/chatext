@@ -9,7 +9,7 @@
 			if (targetElement && targetElement.parentElement !== lastParentNode) {
 				lastParentNode = targetElement.parentElement;
 
-				if (!document.querySelector('chat-ext-container')) {
+				if (!document.querySelector('container')) {
 					const script = document.createElement('script');
 					script.src = chrome.runtime.getURL('client/ChatExtContainer.js');
 					document.head.appendChild(script);
