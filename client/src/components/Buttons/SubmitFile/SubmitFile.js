@@ -1,11 +1,7 @@
 import { html, component } from 'haunted';
+import handleClick from '../../../utility/handleClick';
 
 function SubmitFile() {
-
-
-
-
-
 	return html`
 		<style>
 			.submit-file-btn {

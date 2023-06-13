@@ -1,4 +1,4 @@
-import { html, component, useEffect } from 'haunted';
+import { html, component } from 'haunted';
 
 function ProgressBar() {
 	return html`

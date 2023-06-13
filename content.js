@@ -11,12 +11,14 @@
 
 				if (!document.querySelector('container')) {
 					const script = document.createElement('script');
-					script.src = chrome.runtime.getURL('client/ChatExtContainer.js');
+					script.src = chrome.runtime.getURL(
+						'client/src/components/Container/index.js'
+					);
+					script.type = 'module';
 					document.head.appendChild(script);
 
 					script.onload = () => {
-						const chatExtContainer =
-							document.createElement('chat-ext-container');
+						const chatExtContainer = document.createElement('container');
 						// Insert after a delay
 						targetElement.insertAdjacentElement(
 							'beforebegin',
