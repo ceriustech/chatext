@@ -17,8 +17,18 @@
 │ │ │ └─ ProgressBar.js
 │ │ └─ utility
 │ │ ├─ handleClick.js
-│ ├─ submitConversation.js
+│ ├ ├─ submitConversation.js
 │ │ ├─ updateProgressBar.js
 │ │ └─ waitForChatGPTReady.js
+├─ counter.js
+├─ index.html
 ├─ content.js
 ├─ manifest.json
+├─ main.js
+├─ package-lock.json
+├─ package.json
+├─ styles.css
+
+```
+
+```
