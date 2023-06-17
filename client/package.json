@@ -1,13 +1,15 @@
 {
 	"name": "ChatExt",
-	"version": "1.0.0",
 	"private": true,
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
+	"version": "1.0.0",
+	"type": "module",
 	"author": "Bilal Masters",
-	"license": "ISC",
-	"dependencies": {
-		"haunted": "^5.0.0"
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"preview": "vite preview"
+	},
+	"devDependencies": {
+		"vite": "^4.3.9"
 	}
 }
