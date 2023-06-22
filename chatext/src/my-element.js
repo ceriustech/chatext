@@ -1,60 +1,26 @@
-import { LitElement, css, html } from 'lit';
-import litLogo from './assets/lit.svg';
-import viteLogo from '/vite.svg';
+import { html, component, useEffect, useState } from 'haunted';
 
-/**
- * An example element.
- *
- * @slot - This element has a slot
- * @csspart button - The button
- */
-export class MyElement extends LitElement {
-	static get properties() {
-		return {
-			/**
-			 * Copy for the read the docs hint.
-			 */
-			docsHint: { type: String },
+const MyElement = () => {
+	const [docsHint, setDocsHint] = useState(
+		'Click on the Vite and Lit logos to learn more'
+	);
+	const [count, setCount] = useState(0);
 
-			/**
-			 * The number of times the button has been clicked.
-			 */
-			count: { type: Number },
+	useEffect(() => {
+		const handleClick = () => {
+			setCount((prevCount) => prevCount + 1);
 		};
-	}
 
-	constructor() {
-		super();
-		this.docsHint = 'Click on the Vite and Lit logos to learn more';
-		this.count = 0;
-	}
+		const button = document.querySelector('.button');
+		button.addEventListener('click', handleClick);
 
-	render() {
-		return html`
-			<div>
-				<a href="https://vitejs.dev" target="_blank">
-					<img src=${viteLogo} class="logo" alt="Vite logo" />
-				</a>
-				<a href="https://lit.dev" target="_blank">
-					<img src=${litLogo} class="logo lit" alt="Lit logo" />
-				</a>
-			</div>
-			<slot></slot>
-			<div class="card">
-				<button @click=${this._onClick} part="button">
-					count is ${this.count}
-				</button>
-			</div>
-			<p class="read-the-docs">${this.docsHint}</p>
-		`;
-	}
+		return () => {
+			button.removeEventListener('click', handleClick);
+		};
+	}, []);
 
-	_onClick() {
-		this.count++;
-	}
-
-	static get styles() {
-		return css`
+	return html`
+		<style>
 			:host {
 				max-width: 1280px;
 				margin: 0 auto;
@@ -97,7 +63,7 @@ export class MyElement extends LitElement {
 				line-height: 1.1;
 			}
 
-			button {
+			.button {
 				border-radius: 8px;
 				border: 1px solid transparent;
 				padding: 0.6em 1.2em;
@@ -108,11 +74,11 @@ export class MyElement extends LitElement {
 				cursor: pointer;
 				transition: border-color 0.25s;
 			}
-			button:hover {
+			.button:hover {
 				border-color: #646cff;
 			}
-			button:focus,
-			button:focus-visible {
+			.button:focus,
+			.button:focus-visible {
 				outline: 4px auto -webkit-focus-ring-color;
 			}
 
@@ -120,12 +86,27 @@ export class MyElement extends LitElement {
 				a:hover {
 					color: #747bff;
 				}
-				button {
+				.button {
 					background-color: #f9f9f9;
 				}
 			}
-		`;
-	}
-}
+		</style>
+		<div>
+			<a href="https://vitejs.dev" target="_blank">
+				<img src="/vite.svg" class="logo" alt="Vite logo" />
+			</a>
+			<a href="https://lit.dev" target="_blank">
+				<img src="/assets/lit.svg" class="logo lit" alt="Lit logo" />
+			</a>
+		</div>
+		<slot></slot>
+		<div class="card">
+			<button class="button" @click=${() => setCount(count + 1)}>
+				count is ${count}
+			</button>
+		</div>
+		<p class="read-the-docs">${docsHint}</p>
+	`;
+};
 
-window.customElements.define('my-element', MyElement);
+customElements.define('my-element', component(MyElement));
