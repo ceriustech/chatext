@@ -1,0 +1,19 @@
+{
+	"name": "chatext",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"build-extension": "npm run build && copy manifest.json dist\\ && copy content.js dist\\",
+		"preview": "vite preview"
+	},
+	"dependencies": {
+		"haunted": "^5.0.0",
+		"lit": "^2.7.2"
+	},
+	"devDependencies": {
+		"vite": "^4.3.9"
+	}
+}
