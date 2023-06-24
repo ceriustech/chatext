@@ -9,16 +9,15 @@
 			if (targetElement && targetElement.parentElement !== lastParentNode) {
 				lastParentNode = targetElement.parentElement;
 
-				if (!document.querySelector('container')) {
+				if (!document.querySelector('chat-ext-container')) {
 					const script = document.createElement('script');
-					script.src = chrome.runtime.getURL(
-						'client/src/components/Container/index.js'
-					);
+					script.src = chrome.runtime.getURL('ChatExtContainer.js');
 					script.type = 'module';
 					document.head.appendChild(script);
 
 					script.onload = () => {
-						const chatExtContainer = document.createElement('container');
+						const chatExtContainer =
+							document.createElement('chat-ext-container');
 						// Insert after a delay
 						targetElement.insertAdjacentElement(
 							'beforebegin',

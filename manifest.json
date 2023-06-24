@@ -13,7 +13,7 @@
 	],
 	"web_accessible_resources": [
 		{
-			"resources": ["client/dist/assets/index-3cfb730f.js"],
+			"resources": ["ChatExtContainer.js"],
 			"matches": ["<all_urls>"]
 		}
 	]
