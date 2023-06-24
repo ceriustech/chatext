@@ -1,5 +1,12 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Convert the file URL of the current module to a file path
+const __filename = fileURLToPath(import.meta.url);
+
+// Get the directory path of the current module
+const __dirname = path.dirname(__filename);
 
 // Path to the dist folder
 const distFolderPath = path.join(__dirname, 'dist');
