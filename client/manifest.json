@@ -1,0 +1,38 @@
+{
+  "manifest_version": 3,
+  "name": "ChatExt",
+  "description": "An extension that allows users to upload files to chatGPT",
+  "version": "1.0.0",
+  "author": "Bilal Masters",
+  "permissions": [
+    "activeTab"
+  ],
+  "icons": {
+    "16": "src/assets/icons/icon-16.png",
+    "48": "src/assets/icons/icon-48.png",
+    "128": "src/assets/icons/icon-128.png"
+  },
+  "action": {
+    "default_popup": "index.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*/*"
+      ],
+      "js": [
+        "content.js"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "dist/popupContainer.js"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ]
+}

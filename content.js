@@ -12,6 +12,7 @@
 				if (!document.querySelector('chat-ext-container')) {
 					const script = document.createElement('script');
 					script.src = chrome.runtime.getURL('client/ChatExtContainer.js');
+					script.type = 'module';
 					document.head.appendChild(script);
 
 					script.onload = () => {
