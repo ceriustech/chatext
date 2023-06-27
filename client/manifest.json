@@ -8,12 +8,12 @@
     "activeTab"
   ],
   "icons": {
-    "16": "src/assets/icons/icon-16.png",
-    "48": "src/assets/icons/icon-48.png",
-    "128": "src/assets/icons/icon-128.png"
+    "16": "./dist/assets/icons/icon-16.png",
+    "48": "./dist/assets/icons/icon-48.png",
+    "128": "./dist/assets/icons/icon-128.png"
   },
   "action": {
-    "default_popup": "index.html"
+    "default_popup": "./dist/index.html"
   },
   "content_scripts": [
     {
@@ -28,7 +28,15 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "dist/popupContainer.js"
+        "dist/index.js"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    },
+    {
+      "resources": [
+        "dist/main.js"
       ],
       "matches": [
         "<all_urls>"

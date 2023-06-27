@@ -9,7 +9,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Define the array of file names to copy
-const fileNames = ['popupContainer.js'];
+const fileNames = ['index.html'];
 
 // Define the source and destination directories
 const sourceDir = path.join(__dirname, 'src');

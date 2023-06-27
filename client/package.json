@@ -7,7 +7,7 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "vite build",
-		"build-extension": "npm run build && copy ../manifest.json dist/",
+		"build-extension": "npm run build && node copyAssets.js && node placeFileIntoDist.js && node postBuild.js && copy manifest.json dist\\ && copy content.js dist\\",
 		"preview": "vite preview"
 	},
 	"devDependencies": {

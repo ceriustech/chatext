@@ -95,7 +95,7 @@ const PopupContainer = () => {
 		</style>
 		<div>
 			<a href="https://vitejs.dev" target="_blank">
-				<img src="/assets/icons/icon-256.svg" class="logo" alt="Vite logo" />
+				<img src="assets/icons/icon-256.svg" class="logo" alt="ChatExt logo" />
 			</a>
 		</div>
 		<div class="header-container">
