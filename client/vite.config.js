@@ -5,7 +5,7 @@ export default defineConfig({
 	build: {
 		rollupOptions: {
 			input: {
-				main: resolve(__dirname, 'src/components/Container/Container.js'),
+				main: resolve(__dirname, 'main.js'),
 				index: resolve(__dirname, 'src/index.html'),
 				styles: resolve(__dirname, 'src/assets/index.css'),
 			},
