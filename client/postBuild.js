@@ -28,10 +28,19 @@ jsFiles.forEach((file) => {
 });
 fs.writeFileSync(contentJsPath, contentJsData);
 
-// Replace the paths in manifest.json
+// Load the manifest.json
 let manifestJsonData = JSON.parse(fs.readFileSync(manifestJsonPath, 'utf-8'));
-manifestJsonData.web_accessible_resources = jsFiles.map((file) => ({
-	resources: [`dist/${file}`],
+
+// Add the required entry to web_accessible_resources
+const entryToAdd = {
+	resources: jsFiles.map((file) => `dist/${file}`),
 	matches: ['<all_urls>'],
-}));
+};
+if (!manifestJsonData.web_accessible_resources) {
+	manifestJsonData.web_accessible_resources = [entryToAdd];
+} else {
+	manifestJsonData.web_accessible_resources.push(entryToAdd);
+}
+
+// Write the updated manifest.json
 fs.writeFileSync(manifestJsonPath, JSON.stringify(manifestJsonData, null, 2));

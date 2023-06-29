@@ -19,6 +19,6 @@ function Container() {
   `;
 }
 
-customElements.define('container', component(Container));
+customElements.define('app-container', component(Container));
 
 export default Container;

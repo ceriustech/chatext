@@ -17,6 +17,6 @@ function Layout() {
   `;
 }
 
-customElements.define('layout', component(Layout));
+customElements.define('app-layout', component(Layout));
 
 export default Layout;

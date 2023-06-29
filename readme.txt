@@ -1,4 +1,3 @@
-```
 ChatExt
 ├─ .env
 ├─ .git
