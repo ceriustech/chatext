@@ -1,14 +1,16 @@
 {
-	"name": "ChatExt",
+	"name": "chatext",
 	"private": true,
-	"version": "1.0.0",
+	"version": "0.0.0",
 	"type": "module",
-	"author": "Bilal Masters",
 	"scripts": {
 		"dev": "vite",
 		"build": "vite build",
-		"build-extension": "npm run build && node copyAssets.js && node placeFileIntoDist.js && node postBuild.js && copy manifest.json dist\\ && copy content.js dist\\",
+		"build-extension": "npm run build && node copyAssets.js && node postBuild.js && copy content.js dist\\",
 		"preview": "vite preview"
+	},
+	"dependencies": {
+		"lit": "^2.7.2"
 	},
 	"devDependencies": {
 		"vite": "^4.3.9"

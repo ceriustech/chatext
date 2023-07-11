@@ -9,19 +9,21 @@
 			if (targetElement && targetElement.parentElement !== lastParentNode) {
 				lastParentNode = targetElement.parentElement;
 
-				if (!document.querySelector('layout')) {
+				if (!document.querySelector('app-layout')) {
 					const script = document.createElement('script');
 					script.src = chrome.runtime.getURL('dist/main.js');
 					script.type = 'module';
 					document.head.appendChild(script);
 
 					script.onload = () => {
-						const chatExtContainer = document.createElement('layout');
+						const chatExtContainer = document.createElement('app-layout');
 						// Insert after a delay
-						targetElement.insertAdjacentElement(
-							'beforebegin',
-							chatExtContainer
-						);
+						setTimeout(() => {
+							targetElement.insertAdjacentElement(
+								'beforebegin',
+								chatExtContainer
+							);
+						}, 100);
 					};
 				}
 			}
