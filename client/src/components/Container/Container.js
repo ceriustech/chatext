@@ -1,24 +1,26 @@
-import { html, component } from 'haunted';
-import SubmitFile from '../Buttons/SubmitFile';
-import ProgressBar from '../ProgressBar';
+import { LitElement, html, css } from 'lit';
+import { customElement } from 'lit/decorators.js';
+import './SubmitFile.js';
+import './ProgressBar.js';
 
-function Container() {
-	return html`
-    <style>
-    @media screen and (max-width: 768px) {
-      .container {
-        padding: 0 12px;
-      }
-    }
-    </style>
+@customElement('app-container')
+class Container extends LitElement {
+	static styles = css`
+		@media screen and (max-width: 768px) {
+			.container {
+				padding: 0 12px;
+			}
+		}
+	`;
 
-    <div class="container">
-      <${SubmitFile} buttonText="Submit File To Chat"></${SubmitFile}>
-      <${ProgressBar}></${ProgressBar}>
-    </div>
-  `;
+	render() {
+		return html`
+			<div class="container">
+				<submit-file-button></submit-file-button>
+				<progress-bar></progress-bar>
+			</div>
+		`;
+	}
 }
-
-customElements.define('app-container', component(Container));
 
 export default Container;
