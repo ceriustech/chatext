@@ -27,15 +27,15 @@ class PopupContainer extends LitElement {
 	render() {
 		return html`
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="assets/icons/icon-256.svg" class="logo" alt="ChatExt logo" />
+        <a href="https://lifengineered.com/" target="_blank">
+          <img src="assets/icons/icon-128.svg" class="logo" alt="ChatExt logo" />
         </a>
       </div>
       <div class="header-container">
         <h1>${this.popupInfo.docText.header}</h1>
         <h2>${this.popupInfo.docText.subHeader}</h2>
       </div>
-      <a href="https://vitejs.dev" target="_blank">
+      <a href="https://lifengineered.com/" target="_blank">
         <div class="button">
           ${this.popupInfo.docText.description}</p>
         </div>

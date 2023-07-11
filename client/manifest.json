@@ -18,7 +18,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://*/*"
+        "<all_urls>"
       ],
       "js": [
         "content.js"
@@ -28,51 +28,44 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "dist/index.js"
+        "client/src/components/Container/*"
       ],
       "matches": [
         "<all_urls>"
       ]
     },
     {
-      "resources": [
-        "dist/main.js"
-      ],
+      "resources": [],
       "matches": [
         "<all_urls>"
       ]
     },
     {
-      "resources": [
-        "dist/chunks/lit-haunted.js"
-      ],
+      "resources": [],
       "matches": [
         "<all_urls>"
       ]
     },
     {
-      "resources": [
-        "dist/index.js",
-        "dist/main.js"
-      ],
+      "resources": [],
       "matches": [
         "<all_urls>"
       ]
     },
     {
-      "resources": [
-        "dist/index.js",
-        "dist/main.js"
-      ],
+      "resources": [],
       "matches": [
         "<all_urls>"
       ]
     },
     {
-      "resources": [
-        "dist/index.js",
-        "dist/main.js"
-      ],
+      "resources": [],
+      "matches": [
+        "<all_urls>"
+      ]
+    },
+    {
+      "resources": [],
       "matches": [
         "<all_urls>"
       ]
