@@ -1,7 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { customElement } from 'lit/decorators.js';
 
-@customElement('progress-bar')
 class ProgressBar extends LitElement {
 	static styles = css`
 		.progress-bar-container {
@@ -25,5 +23,7 @@ class ProgressBar extends LitElement {
 		`;
 	}
 }
+
+customElements.define('progress-bar', ProgressBar);
 
 export default ProgressBar;

@@ -69,6 +69,14 @@
       "matches": [
         "<all_urls>"
       ]
+    },
+    {
+      "resources": [
+        "dist/chatext.js"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
     }
   ]
 }

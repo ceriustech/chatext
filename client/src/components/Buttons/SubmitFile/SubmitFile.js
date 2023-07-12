@@ -1,8 +1,6 @@
+// SubmitFile.js
 import { LitElement, html, css } from 'lit';
-import { customElement } from 'lit/decorators.js';
-import handleClick from '../../../utility/handleClick';
 
-@customElement('submit-file-button')
 class SubmitFile extends LitElement {
 	static styles = css`
 		.submit-file-btn {
@@ -29,5 +27,7 @@ class SubmitFile extends LitElement {
 		`;
 	}
 }
+
+customElements.define('submit-file-button', SubmitFile);
 
 export default SubmitFile;

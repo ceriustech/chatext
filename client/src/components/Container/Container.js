@@ -1,9 +1,7 @@
 import { LitElement, html, css } from 'lit';
-import { customElement } from 'lit/decorators.js';
-import './SubmitFile.js';
-import './ProgressBar.js';
+import '../Buttons/SubmitFile/SubmitFile';
+import '../ProgressBar/ProgressBar.js';
 
-@customElement('app-container')
 class Container extends LitElement {
 	static styles = css`
 		@media screen and (max-width: 768px) {
@@ -22,5 +20,7 @@ class Container extends LitElement {
 		`;
 	}
 }
+
+customElements.define('app-container', Container);
 
 export default Container;
