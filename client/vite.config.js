@@ -5,7 +5,6 @@ export default defineConfig({
 	base: './',
 	build: {
 		minify: true,
-		assetsDir: 'dist',
 		rollupOptions: {
 			input: {
 				main: 'src/main.js',
