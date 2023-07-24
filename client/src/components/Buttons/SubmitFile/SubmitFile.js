@@ -1,5 +1,6 @@
 // SubmitFile.js
 import { LitElement, html, css } from 'lit';
+import handleClick from '../../../utility/handleClick';
 
 class SubmitFile extends LitElement {
 	static styles = css`
@@ -14,7 +15,7 @@ class SubmitFile extends LitElement {
 			width: 150px;
 		}
 
-		.submit-file-button:hover {
+		.submit-file-btn:hover {
 			cursor: pointer;
 		}
 	`;
