@@ -4,15 +4,18 @@ import { defineConfig } from 'vite';
 export default defineConfig({
 	base: './',
 	build: {
-		outDir: 'dist',
-		lib: {
-			entry: 'src/main.js',
-			name: 'ChatExt',
-			formats: ['es'],
-		},
+		minify: true,
+		assetsDir: 'dist',
 		rollupOptions: {
-			external: /^lit/,
+			input: {
+				main: 'src/main.js',
+				index: 'index.html',
+			},
+			output: {
+				format: 'es',
+				entryFileNames: '[name].min.js',
+				chunkFileNames: '[name]-[hash].min.js',
+			},
 		},
-		emptyOutDir: true,
 	},
 });

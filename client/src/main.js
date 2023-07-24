@@ -1,1 +1,1 @@
-import './components/Container/Container';
+import '../src/components/Container/Container';
