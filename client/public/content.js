@@ -31,5 +31,15 @@
 
 		setAndLoadScript();
 	}
+
+	const observer = new MutationObserver((mutations) => {
+		createAndInsertButton();
+	});
+
+	observer.observe(document.body, {
+		childList: true,
+		subtree: true,
+	});
+
 	createAndInsertButton();
 })();
