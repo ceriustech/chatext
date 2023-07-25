@@ -1,5 +1,4 @@
 import submitConversation from './submitConversation';
-import updateProgressBar from './updateProgressBar';
 import waitForChatGPTReady from './waitForChatGPTReady';
 
 async function handleClick() {
@@ -19,12 +18,8 @@ async function handleClick() {
 
 		for (const [index, chunk] of chunks.entries()) {
 			await submitConversation(chunk, index + 1, file.name);
-			updateProgressBar(index + 1, chunks.length);
-
 			await waitForChatGPTReady();
 		}
-
-		updateProgressBar(chunks.length, chunks.length, true);
 	});
 
 	fileInput.click();

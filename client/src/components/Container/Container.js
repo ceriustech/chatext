@@ -1,6 +1,5 @@
 import { LitElement, html, css } from 'lit';
 import '../Buttons/SubmitFile/SubmitFile';
-import '../ProgressBar/ProgressBar.js';
 
 class Container extends LitElement {
 	static styles = css`
@@ -15,7 +14,6 @@ class Container extends LitElement {
 		return html`
 			<div class="container">
 				<submit-file-button></submit-file-button>
-				<progress-bar></progress-bar>
 			</div>
 		`;
 	}
