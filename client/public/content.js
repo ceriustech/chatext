@@ -23,6 +23,7 @@
 								'beforebegin',
 								chatExtContainer
 							);
+							lastParentNode.style.flexDirection = 'row';
 						}, 100);
 					};
 				}
