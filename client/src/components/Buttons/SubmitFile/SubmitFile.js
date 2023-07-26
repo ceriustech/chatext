@@ -1,6 +1,6 @@
 // SubmitFile.js
 import { LitElement, html, css } from 'lit';
-import handleClick from '../../../utility/handleClick';
+import getEventHandler from '../../../utility/getEventHandler';
 
 class SubmitFile extends LitElement {
 	static styles = css`
@@ -33,7 +33,12 @@ class SubmitFile extends LitElement {
 
 	render() {
 		return html`
-			<button class="submit-file-btn" @click=${() => handleClick()}>
+			<button
+				class="submit-file-btn"
+				@click=${getEventHandler('click')}
+				@dragover=${(e) => e.preventDefault()}
+				@drop=${getEventHandler('drop')}
+			>
 				<svg
 					class="btn-plus-icon"
 					xmlns="http://www.w3.org/2000/svg"
