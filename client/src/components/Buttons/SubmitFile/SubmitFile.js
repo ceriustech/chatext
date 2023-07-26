@@ -36,7 +36,13 @@ class SubmitFile extends LitElement {
 			<button
 				class="submit-file-btn"
 				@click=${getEventHandler('click')}
-				@dragover=${(e) => e.preventDefault()}
+				@dragover=${(e) => {
+					e.preventDefault();
+					e.currentTarget.style.transform = 'scale(1.2)';
+				}}
+				@dragleave=${(e) => {
+					e.currentTarget.style.transform = 'scale(1)';
+				}}
 				@drop=${getEventHandler('drop')}
 			>
 				<svg
