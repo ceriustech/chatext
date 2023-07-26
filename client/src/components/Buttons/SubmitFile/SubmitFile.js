@@ -24,14 +24,20 @@ class SubmitFile extends LitElement {
 			cursor: pointer;
 			transform: scale(1.2);
 		}
+
+		.btn-plus-icon {
+			position: relative;
+			top: 1px;
+		}
 	`;
 
 	render() {
 		return html`
 			<button class="submit-file-btn" @click=${() => handleClick()}>
 				<svg
+					class="btn-plus-icon"
 					xmlns="http://www.w3.org/2000/svg"
-					height=".75em"
+					height=".85em"
 					viewBox="0 0 448 512"
 					fill="#7e1e89"
 				>
