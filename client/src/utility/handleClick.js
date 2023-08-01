@@ -1,5 +1,6 @@
 import submitConversation from './submitConversation';
 import waitForChatGPTReady from './waitForChatGPTReady';
+import { handleFileUpload } from './handleFileUpload';
 
 async function handleClick() {
 	const fileInput = document.createElement('input');
@@ -13,7 +14,8 @@ async function handleClick() {
 		}
 
 		const file = event.target.files[0];
-		const text = await file.text();
+		const text = await handleFileUpload(file);
+		// const text = await file.text();
 		const chunks = text.match(/[\s\S]{1,15000}/g);
 
 		for (const [index, chunk] of chunks.entries()) {
