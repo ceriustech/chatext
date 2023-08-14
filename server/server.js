@@ -1,17 +1,35 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
+const mammoth = require('mammoth');
+const fs = require('fs');
 const port = 3030;
 
+app.use(cors());
+
 app.post('/convert', upload.single('file'), async (req, res) => {
-	// req.file is the uploaded file
-	// For now, just send a simple response. You'll replace this with the file conversion logic.
 	if (req.file) {
-		console.log('File received: ', req.file); // This will print the file information to the console
-		res.send('File received, conversion logic to be implemented');
+		console.log('File received: ', req.file);
+		const path = req.file.path;
+
+		try {
+			const result = await mammoth.extractRawText({ path });
+			console.log('Extracted Text:', result.value);
+
+			if (result.value.trim() === '') {
+				res.status(400).send('File converted but resulted in empty text.');
+			} else {
+				fs.unlinkSync(path); // remove the file after conversion
+				res.send(result.value);
+			}
+		} catch (err) {
+			console.error(err);
+			res.status(500).send('Error converting file');
+		}
 	} else {
-		console.log('No file received'); // This will print the message to the console
+		console.log('No file received');
 		res.send('No file received');
 	}
 });

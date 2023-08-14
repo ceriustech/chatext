@@ -6,7 +6,13 @@ async function handleDragDrop(event) {
 	event.preventDefault();
 	const file = event.dataTransfer.files[0];
 	if (file) {
-		const text = await handleFileUpload(file);
+		const text = await handleFileUpload(file).catch((err) => {
+			console.error('Error while uploading file:', err);
+		});
+		if (!text) {
+			// Something went wrong during file upload, don't continue processing
+			return;
+		}
 		// const text = await file.text();
 		const chunks = text.match(/[\s\S]{1,15000}/g);
 
