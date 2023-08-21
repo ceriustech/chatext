@@ -3,7 +3,8 @@ import * as pdfjsLib from 'pdfjs-dist';
 import { GlobalWorkerOptions } from 'pdfjs-dist';
 
 // Setting the workerSrc for pdf.js
-GlobalWorkerOptions.workerSrc = '../pdf.worker';
+GlobalWorkerOptions.workerSrc =
+	'https://chatext-pdf-worker.s3.us-east-2.amazonaws.com/pdf.worker.js';
 
 export const handleFileUpload = (file) => {
 	return new Promise(async (resolve, reject) => {
