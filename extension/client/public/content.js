@@ -1,10 +1,11 @@
 (function () {
 	const targetElementSelector = '#prompt-textarea';
-	const targetElement = document.querySelector(targetElementSelector);
+	let targetElement;
 	let lastParentNode;
 	const mediaQuery = window.matchMedia('(max-width: 768px)');
 
 	function handleMediaQueryChange(mediaQuery) {
+		targetElement = document.querySelector(targetElementSelector);
 		if (mediaQuery.matches) {
 			targetElement.style.paddingLeft = '48px';
 		} else {
@@ -13,6 +14,8 @@
 	}
 
 	function createAndInsertButton() {
+		targetElement = document.querySelector(targetElementSelector);
+
 		function setAndLoadScript() {
 			if (targetElement && targetElement.parentElement !== lastParentNode) {
 				lastParentNode = targetElement.parentElement;
@@ -36,7 +39,6 @@
 								'beforebegin',
 								chatExtContainer
 							);
-
 							lastParentNode.style.flexDirection = 'row';
 							lastParentNode.style.position = 'relative';
 						}, 100);
