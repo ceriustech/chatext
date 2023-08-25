@@ -10,6 +10,11 @@ class Modal extends LitElement {
 		this.isOpen = false;
 	}
 
+	closeModal() {
+		this.isOpen = false;
+		this.requestUpdate();
+	}
+
 	static styles = css`
 		.modal-container {
 			display: none;
@@ -21,22 +26,28 @@ class Modal extends LitElement {
 			height: 100%;
 			overflow: auto;
 			background-color: rgb(0, 0, 0);
-			background-color: rgba(0, 0, 0, 0.4);
+			background-color: rgba(0, 0, 0, 0);
 		}
 
 		.modal-content {
 			background-color: #fefefe;
+			border-radius: 10px;
 			margin: 15% auto;
 			padding: 20px;
 			border: 1px solid #888;
-			width: 80%;
+			max-width: 410px;
+			width: 100%;
+			position: relative;
+			right: 29rem;
 		}
 
 		.close {
 			color: #aaa;
-			float: right;
 			font-size: 28px;
 			font-weight: bold;
+			position: absolute;
+			top: 0;
+			right: 1rem;
 		}
 
 		.close:hover,
@@ -55,7 +66,7 @@ class Modal extends LitElement {
 				style="display: ${this.isOpen ? 'block' : 'none'}"
 			>
 				<div class="modal-content">
-					<span class="close">&times;</span>
+					<span class="close" @click=${this.closeModal}>&times;</span>
 					<p>Some text in the Modal..</p>
 				</div>
 			</div>
