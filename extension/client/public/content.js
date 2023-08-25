@@ -3,9 +3,12 @@
 	let targetElement;
 	let lastParentNode;
 	const mediaQuery = window.matchMedia('(max-width: 768px)');
+	let eventListenerAdded = false;
+	let eventListenerCounter = 0;
 
 	function handleMediaQueryChange(mediaQuery) {
 		targetElement = document.querySelector(targetElementSelector);
+
 		if (mediaQuery.matches) {
 			targetElement.style.paddingLeft = '48px';
 		} else {
@@ -26,9 +29,14 @@
 					script.type = 'module';
 					document.head.appendChild(script);
 
-					mediaQuery.addEventListener('change', () =>
-						handleMediaQueryChange(mediaQuery)
-					);
+					if (!eventListenerAdded) {
+						eventListenerCounter++;
+						console.log(`Event Listener Added ${eventListenerCounter} times.`);
+
+						mediaQuery.addEventListener('change', handleMediaQueryChange);
+						eventListenerAdded = true;
+					}
+
 					handleMediaQueryChange(mediaQuery);
 
 					script.onload = () => {
