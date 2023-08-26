@@ -17,7 +17,7 @@ class OpenModal extends LitElement {
 		.open-modal-btn {
 			background-color: #d1d5db;
 			background-position: center;
-			background-size: 50% 2px, 2px 50%; /*thickness = 2px, length = 50% (25px)*/
+			background-size: 50% 2px, 2px 50%; 
 			background-repeat: no-repeat;
 			border-radius: 25px;
 			color: #7e1e89;
