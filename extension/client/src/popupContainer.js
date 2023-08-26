@@ -27,7 +27,7 @@ class PopupContainer extends LitElement {
 	render() {
 		return html`
       <div>
-        <a href="https://lifengineered.com/" target="_blank">
+        <a href="https://chatext.app/" target="_blank">
           <img src="assets/icons/icon-128.svg" class="logo" alt="ChatExt logo" />
         </a>
       </div>
@@ -35,7 +35,7 @@ class PopupContainer extends LitElement {
         <h1>${this.popupInfo.docText.header}</h1>
         <h2>${this.popupInfo.docText.subHeader}</h2>
       </div>
-      <a href="https://lifengineered.com/" target="_blank">
+      <a href="https://chatext.app/" target="_blank">
         <div class="button">
           ${this.popupInfo.docText.description}</p>
         </div>
