@@ -58,7 +58,6 @@ class Modal extends LitElement {
 			border-radius: 10px;
 			margin: 15% auto;
 			padding: 20px;
-			border: 1px solid #888;
 			max-width: 410px;
 			width: 100%;
 			position: relative;
@@ -85,6 +84,10 @@ class Modal extends LitElement {
 			color: #000;
 			font-size: 1.25rem;
 			margin-top: 0;
+		}
+
+		.tab-container {
+			margin: 20px 0;
 		}
 	`;
 
