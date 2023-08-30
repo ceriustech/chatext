@@ -1,7 +1,24 @@
 import { LitElement, html, css } from 'lit';
-import '../Buttons/SubmitFile/SubmitFile';
+import '../Buttons/OpenModal';
+import '../Modal';
 
 class Container extends LitElement {
+	openModal() {
+		const modal = this.shadowRoot.querySelector('chatext-modal-container');
+		if (modal) {
+			modal.isOpen = true;
+		}
+	}
+
+	connectedCallback() {
+		super.connectedCallback();
+		this.addEventListener('open-modal', this.openModal);
+	}
+
+	disconnectedCallback() {
+		this.removeEventListener('open-modal', this.openModal);
+		super.disconnectedCallback();
+	}
 	static styles = css`
 		.container {
 			position: absolute;
@@ -20,7 +37,8 @@ class Container extends LitElement {
 	render() {
 		return html`
 			<div class="container">
-				<submit-file-button></submit-file-button>
+				<chatext-modal-container></chatext-modal-container>
+				<open-modal-button></open-modal-button>
 			</div>
 		`;
 	}
