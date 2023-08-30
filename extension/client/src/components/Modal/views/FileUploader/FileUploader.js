@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import getEventHandler from '../../../../utility/getEventHandler';
 
 class FileUploader extends LitElement {
 	static properties = {
@@ -17,7 +18,7 @@ class FileUploader extends LitElement {
 
 	static styles = css`
 		.file-upload-wrapper {
-			border: 1px dashed #7e1e89;
+			border: 2px dashed #7e1e89;
 			border-radius: 10px;
 			display: flex;
 			flex-direction: column;
@@ -36,14 +37,31 @@ class FileUploader extends LitElement {
 
 		.file-upload-info-p {
 			color: #999da5;
+			cursor: pointer;
 			font-size: 1.025rem;
 			margin-top: 0;
+		}
+
+		.file-upload-info-p:hover {
+			color: #7e1e89;
 		}
 	`;
 
 	render() {
 		return html`
-			<div id="file-uploader" class="file-uploader-container">
+			<div
+				id="file-uploader"
+				class="file-uploader-container"
+				@click=${getEventHandler('click')}
+				@dragover=${(e) => {
+					e.preventDefault();
+					e.currentTarget.style.transform = 'scale(1.2)';
+				}}
+				@dragleave=${(e) => {
+					e.currentTarget.style.transform = 'scale(1)';
+				}}
+				@drop=${getEventHandler('drop')}
+			>
 				<div class="file-upload-wrapper">
 					<div class="upload-icon">
 						<svg
