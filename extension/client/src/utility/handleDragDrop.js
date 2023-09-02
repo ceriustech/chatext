@@ -3,9 +3,17 @@ import waitForChatGPTReady from './waitForChatGPTReady';
 import { handleFileUpload } from './handleFileUpload';
 
 async function handleDragDrop(event) {
+	const MAX_FILES = 5;
 	event.preventDefault();
-	const file = event.dataTransfer.files[0];
-	if (file) {
+	const files = event.dataTransfer.files;
+
+	if (files.length > MAX_FILES) {
+		console.log(`You can't upload more than ${MAX_FILES} files.`);
+		return;
+	}
+
+	for (let i = 0; i < files.length; i++) {
+		const file = files[i];
 		const text = await handleFileUpload(file).catch((err) => {
 			console.error('Error while uploading file:', err);
 		});
