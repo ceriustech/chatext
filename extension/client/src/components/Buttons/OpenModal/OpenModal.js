@@ -23,7 +23,7 @@ class OpenModal extends LitElement {
 			font-size: 16px;
 			padding: 1px 5px;
 			border: none;
-			margin-right: 10px;
+			margin-left: 12px;
 			width: 25px;
 			height: 25px;
 			transition: transform 0.3s ease-in-out;

@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import '../../../Buttons/SubmitFile';
 import getEventHandler from '../../../../utility/getEventHandler';
 
 class FileUploader extends LitElement {
@@ -45,6 +46,12 @@ class FileUploader extends LitElement {
 		.file-upload-info-p:hover {
 			color: #7e1e89;
 		}
+
+		.submit-file-btn-container {
+			display: flex;
+			flex-direction: row;
+			justify-content: end;
+		}
 	`;
 
 	render() {
@@ -53,13 +60,6 @@ class FileUploader extends LitElement {
 				id="file-uploader"
 				class="file-uploader-container"
 				@click=${getEventHandler('click')}
-				@dragover=${(e) => {
-					e.preventDefault();
-					e.currentTarget.style.transform = 'scale(1.2)';
-				}}
-				@dragleave=${(e) => {
-					e.currentTarget.style.transform = 'scale(1)';
-				}}
 				@drop=${getEventHandler('drop')}
 			>
 				<div class="file-upload-wrapper">
@@ -115,6 +115,10 @@ class FileUploader extends LitElement {
 					<h2 class="file-upload-info-h">Drag file here</h2>
 					<p class="file-upload-info-p">or, click to browse</p>
 				</div>
+				<div class="file-upload-icon-wrapper"></div>
+				<submit-file-button
+					class="submit-file-btn-container"
+				></submit-file-button>
 			</div>
 		`;
 	}
