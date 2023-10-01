@@ -48,7 +48,7 @@ class Modal extends LitElement {
 			top: 0;
 			width: 100%;
 			height: 100%;
-			overflow: auto;
+			overflow: hidden;
 			background-color: rgb(0, 0, 0);
 			background-color: rgba(0, 0, 0, 0);
 		}
@@ -58,16 +58,15 @@ class Modal extends LitElement {
 			border-radius: 10px;
 			margin: 15% auto;
 			padding: 20px;
-			max-width: 410px;
+			max-width: 365px;
 			width: 100%;
 			position: relative;
-			right: 29rem;
+			right: 30.25rem;
 		}
 
 		.close {
 			color: #aaa;
 			font-size: 28px;
-			font-weight: bold;
 			position: absolute;
 			top: 0;
 			right: 1rem;

@@ -12,7 +12,7 @@
 		if (mediaQuery.matches) {
 			targetElement.style.paddingLeft = '48px';
 		} else {
-			targetElement.style.paddingLeft = '38px';
+			targetElement.style.paddingLeft = '48px';
 		}
 	}
 

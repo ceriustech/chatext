@@ -1,4 +1,6 @@
 import { LitElement, html, css } from 'lit';
+import '../../../Buttons/SubmitFile';
+import '../../../FileIcon';
 import getEventHandler from '../../../../utility/getEventHandler';
 
 class FileUploader extends LitElement {
@@ -45,24 +47,30 @@ class FileUploader extends LitElement {
 		.file-upload-info-p:hover {
 			color: #7e1e89;
 		}
+
+		.file-upload-icon-wrapper {
+			display: flex;
+			flex-direction: row;
+			gap: 5px;
+			align-items: flex-start;
+			margin: 10px 0 25px;
+		}
+
+		.submit-file-btn-container {
+			display: flex;
+			flex-direction: row;
+			justify-content: end;
+		}
 	`;
 
 	render() {
 		return html`
-			<div
-				id="file-uploader"
-				class="file-uploader-container"
-				@click=${getEventHandler('click')}
-				@dragover=${(e) => {
-					e.preventDefault();
-					e.currentTarget.style.transform = 'scale(1.2)';
-				}}
-				@dragleave=${(e) => {
-					e.currentTarget.style.transform = 'scale(1)';
-				}}
-				@drop=${getEventHandler('drop')}
-			>
-				<div class="file-upload-wrapper">
+			<div id="file-uploader" class="file-uploader-container">
+				<div
+					class="file-upload-wrapper"
+					@click=${getEventHandler('click')}
+					@drop=${getEventHandler('drop')}
+				>
 					<div class="upload-icon">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -115,6 +123,10 @@ class FileUploader extends LitElement {
 					<h2 class="file-upload-info-h">Drag file here</h2>
 					<p class="file-upload-info-p">or, click to browse</p>
 				</div>
+				<div class="file-upload-icon-wrapper"></div>
+				<submit-file-button
+					class="submit-file-btn-container"
+				></submit-file-button>
 			</div>
 		`;
 	}

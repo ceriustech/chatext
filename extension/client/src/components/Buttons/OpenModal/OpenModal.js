@@ -1,6 +1,5 @@
 // SubmitFile.js
 import { LitElement, html, css } from 'lit';
-import getEventHandler from '../../../utility/getEventHandler';
 
 class OpenModal extends LitElement {
 	openModalFunction() {
@@ -17,14 +16,14 @@ class OpenModal extends LitElement {
 		.open-modal-btn {
 			background-color: #d1d5db;
 			background-position: center;
-			background-size: 50% 2px, 2px 50%; 
+			background-size: 50% 2px, 2px 50%;
 			background-repeat: no-repeat;
 			border-radius: 25px;
 			color: #7e1e89;
 			font-size: 16px;
 			padding: 1px 5px;
 			border: none;
-			margin-right: 10px;
+			margin-left: 12px;
 			width: 25px;
 			height: 25px;
 			transition: transform 0.3s ease-in-out;
