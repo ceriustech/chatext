@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import '../../../Buttons/SubmitFile';
+import '../../../FileIcon';
 import getEventHandler from '../../../../utility/getEventHandler';
 
 class FileUploader extends LitElement {
@@ -47,6 +48,14 @@ class FileUploader extends LitElement {
 			color: #7e1e89;
 		}
 
+		.file-upload-icon-wrapper {
+			display: flex;
+			flex-direction: row;
+			gap: 5px;
+			align-items: flex-start;
+			margin: 10px 0 25px;
+		}
+
 		.submit-file-btn-container {
 			display: flex;
 			flex-direction: row;
@@ -56,13 +65,12 @@ class FileUploader extends LitElement {
 
 	render() {
 		return html`
-			<div
-				id="file-uploader"
-				class="file-uploader-container"
-				@click=${getEventHandler('click')}
-				@drop=${getEventHandler('drop')}
-			>
-				<div class="file-upload-wrapper">
+			<div id="file-uploader" class="file-uploader-container">
+				<div
+					class="file-upload-wrapper"
+					@click=${getEventHandler('click')}
+					@drop=${getEventHandler('drop')}
+				>
 					<div class="upload-icon">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"

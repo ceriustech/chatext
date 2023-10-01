@@ -1,15 +1,13 @@
-// SubmitFile.js
 import { LitElement, html, css } from 'lit';
 import submitFiles from '../../../utility/submitFiles';
 
 class SubmitFile extends LitElement {
 	static styles = css`
 		.submit-file-btn {
-			background-color: #7e1e89;
-			border: none;
+			background-color: #fff;
+			border: 1px solid #7e1e89;
 			border-radius: 10px;
-			color: white;
-			padding: 10px 24px;
+			padding: 5px 16px;
 			text-align: center;
 			text-decoration: none;
 			display: inline-block;
@@ -17,11 +15,19 @@ class SubmitFile extends LitElement {
 			margin: 10px 2px;
 			cursor: pointer;
 		}
+
+		p {
+			color: #7e1e89;
+			font-size: 0.95rem;
+			margin: 0;
+		}
 	`;
 
 	render() {
 		return html`
-			<button class="submit-file-btn" @click=${submitFiles}>Submit</button>
+			<button class="submit-file-btn" @click=${submitFiles}>
+				<p>Submit</p>
+			</button>
 		`;
 	}
 }

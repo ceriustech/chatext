@@ -1,19 +1,48 @@
 import { LitElement, html, css } from 'lit';
+import '../Buttons/RemoveFileIcon';
+import removeFile from '../../utility/removeFile';
 
 class FileIcon extends LitElement {
-	static styles = css``;
+	static styles = css`
+		.file-icon-container {
+			width: 56px;
+			display: flex;
+			flex-direction: column;
+			align-items: end;
+		}
+
+		.file-icon-wrapper {
+			width: 100%;
+			position: relative;
+		}
+
+		.file-icon-remove-btn {
+			position: absolute;
+			left: 37px;
+			bottom: 41px;
+		}
+
+		.file-icon-info {
+			color: #999da5;
+			margin: 0px;
+			line-height: 0;
+			padding-right: 5px;
+		}
+	`;
 
 	render() {
 		return html`
 			<div class="file-icon-container">
 				<div class="file-icon-wrapper">
-          <div class"file-icon-remove-btn"></div>
+					<div class="file-icon-remove-btn" @click=${removeFile}>
+						<remove-file-icon></remove-file-icon>
+					</div>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						xmlns:xlink="http://www.w3.org/1999/xlink"
 						viewBox="0,0,256,256"
-						width="64px"
-						height="64px"
+						width="60px"
+						height="60px"
 					>
 						<g
 							fill="none"

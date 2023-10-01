@@ -67,7 +67,6 @@ class Modal extends LitElement {
 		.close {
 			color: #aaa;
 			font-size: 28px;
-			font-weight: bold;
 			position: absolute;
 			top: 0;
 			right: 1rem;
