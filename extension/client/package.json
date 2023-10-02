@@ -11,6 +11,7 @@
 	},
 	"dependencies": {
 		"lit": "^2.7.2",
+		"lit-html": "^2.8.0",
 		"mammoth": "^1.6.0",
 		"pdfjs-dist": "^3.9.179"
 	},

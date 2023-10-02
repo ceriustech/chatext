@@ -38,7 +38,7 @@ class FileUploader extends LitElement {
 		}
 
 		.file-upload-info-p {
-			color: #999da5;
+			color: #6c6f72;
 			cursor: pointer;
 			font-size: 1.025rem;
 			margin-top: 0;

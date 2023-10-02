@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
 import './views/FileUploader';
 import './views/ChatTitleUpdater';
 
@@ -134,11 +135,16 @@ class Modal extends LitElement {
 										class="tab"
 										@click=${this.setActiveTab}
 										data-tab=${tab.id}
-										style="color: ${this.activeTab === tab.id
-											? '#000'
-											: '#6c6f72'}"
 									>
-										<h2>${tab.label}</h2>
+										<h2
+											style=${styleMap({
+												color: this.activeTab === tab.id ? '#000' : '#6c6f72',
+												borderBottom:
+													this.activeTab === tab.id ? '2px solid #000' : 'none',
+											})}
+										>
+											${tab.label}
+										</h2>
 									</div>
 								`
 							)}
