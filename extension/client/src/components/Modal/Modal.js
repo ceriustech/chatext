@@ -1,14 +1,30 @@
 import { LitElement, html, css } from 'lit';
 import './views/FileUploader';
+import './views/ChatTitleUpdater';
+
+const tabs = [
+	{
+		id: 'file-upload-view',
+		label: 'Upload Files',
+		component: 'file-uploader-view',
+	},
+	{
+		id: 'rename-chat-view',
+		label: 'Rename Chats',
+		component: 'chat-title-updater-view',
+	},
+];
 
 class Modal extends LitElement {
 	static properties = {
 		isOpen: { type: Boolean },
+		activeTab: { type: String },
 	};
 
 	constructor() {
 		super();
 		this.isOpen = false;
+		this.activeTab = tabs[0].id;
 	}
 
 	closeModal() {
@@ -16,25 +32,26 @@ class Modal extends LitElement {
 		this.requestUpdate();
 	}
 
-	switchTab(event) {
-		// Get the clicked tab element
-		const clickedTab = event.currentTarget;
+	setActiveTab(event) {
+		this.activeTab = event.currentTarget.getAttribute('data-tab');
+		this.requestUpdate();
+	}
 
-		// Get the value of data-tab attribute
-		const tabName = clickedTab.getAttribute('data-tab');
+	updated(changedProperties) {
+		super.updated(changedProperties);
+		if (changedProperties.has('activeTab')) {
+			const placeholder = this.shadowRoot.querySelector(
+				'#tab-content-placeholder'
+			);
+			placeholder.innerHTML = ''; // Clear the placeholder
 
-		// Get all tab-content elements
-		const allTabContents = this.shadowRoot.querySelectorAll('.tab-content');
-
-		// Hide all tab content elements
-		allTabContents.forEach((tabContent) => {
-			tabContent.style.display = 'none';
-		});
-
-		// Show the tab content that corresponds to the clicked tab
-		const targetTabContent = this.shadowRoot.querySelector(`#${tabName}`);
-		if (targetTabContent) {
-			targetTabContent.style.display = 'block';
+			const activeTab = tabs.find((tab) => tab.id === this.activeTab);
+			if (activeTab) {
+				const el = document.createElement(activeTab.component);
+				el.id = activeTab.id;
+				el.className = 'tab-content';
+				placeholder.appendChild(el);
+			}
 		}
 	}
 
@@ -86,7 +103,16 @@ class Modal extends LitElement {
 		}
 
 		.tab-container {
-			margin: 20px 0;
+			cursor: pointer;
+			display: flex;
+			flex-direction: row;
+			gap: 1.5rem;
+			font-size: 12px;
+			margin-bottom: 10px;
+		}
+
+		.tab {
+			font-size: 0.62rem;
 		}
 	`;
 
@@ -99,28 +125,28 @@ class Modal extends LitElement {
 			>
 				<div class="modal-content">
 					<h1 class="app-tittle">ChatExt</h1>
-					<div class="tab-container">
-						<button
-							class="tab"
-							@click=${this.switchTab}
-							data-tab="file-upload-view"
-						>
-							Upload Files
-						</button>
-						<button
-							class="tab"
-							@click=${this.switchTab}
-							data-tab="rename-chat-view"
-						>
-							Rename Chats
-						</button>
-					</div>
 					<span class="close" @click=${this.closeModal}>&times;</span>
-					<file-uploader-container
-						id="file-upload-view"
-						class="tab-content"
-					></file-uploader-container>
-					<div id="rename-chat-view" class="tab-content">Tab 2</div>
+					<div class="tab-view-container">
+						<div class="tab-container">
+							${tabs.map(
+								(tab) => html`
+									<div
+										class="tab"
+										@click=${this.setActiveTab}
+										data-tab=${tab.id}
+										style="color: ${this.activeTab === tab.id
+											? '#000'
+											: '#6c6f72'}"
+									>
+										<h2>${tab.label}</h2>
+									</div>
+								`
+							)}
+						</div>
+						<div class="tab-view">
+							<div id="tab-content-placeholder"></div>
+						</div>
+					</div>
 				</div>
 			</div>
 		`;

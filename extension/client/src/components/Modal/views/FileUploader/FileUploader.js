@@ -132,6 +132,6 @@ class FileUploader extends LitElement {
 	}
 }
 
-customElements.define('file-uploader-container', FileUploader);
+customElements.define('file-uploader-view', FileUploader);
 
 export default FileUploader;
