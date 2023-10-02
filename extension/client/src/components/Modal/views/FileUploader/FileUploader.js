@@ -38,7 +38,7 @@ class FileUploader extends LitElement {
 		}
 
 		.file-upload-info-p {
-			color: #999da5;
+			color: #6c6f72;
 			cursor: pointer;
 			font-size: 1.025rem;
 			margin-top: 0;
@@ -132,6 +132,6 @@ class FileUploader extends LitElement {
 	}
 }
 
-customElements.define('file-uploader-container', FileUploader);
+customElements.define('file-uploader-view', FileUploader);
 
 export default FileUploader;
