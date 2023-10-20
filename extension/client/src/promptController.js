@@ -1,0 +1,1 @@
+export const PROMPT = 'DO NOT summarize this post. Respond with " Post analyxed, what would you like me to do?"';

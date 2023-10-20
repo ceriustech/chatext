@@ -1,3 +1,5 @@
+import { PROMPT } from "../promptController";
+
 async function submitConversation(text, part, filename) {
 	try {
 		const textarea = document.querySelector('#prompt-textarea');
@@ -11,7 +13,7 @@ async function submitConversation(text, part, filename) {
 			cancelable: true,
 		});
 
-		textarea.value = `Part ${part} of ${filename}: \n\n ${text}`;
+		textarea.value = `Part ${part} of ${filename}: ${PROMPT} \n\n ${text}`;
 
 		textarea.dispatchEvent(inputEvent);
 

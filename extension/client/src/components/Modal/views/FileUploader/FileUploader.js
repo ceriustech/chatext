@@ -123,7 +123,9 @@ class FileUploader extends LitElement {
 					<h2 class="file-upload-info-h">Drag file here</h2>
 					<p class="file-upload-info-p">or, click to browse</p>
 				</div>
-				<div class="file-upload-icon-wrapper"></div>
+				<div class="file-upload-icon-wrapper">
+					<file-icon></file-icon>
+				</div>
 				<submit-file-button
 					class="submit-file-btn-container"
 				></submit-file-button>
