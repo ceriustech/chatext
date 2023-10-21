@@ -21,7 +21,6 @@
 	function handleImageElement(selector) {
 		imageElement = document.querySelector(selector);
 		if (imageElement) {
-			console.log("🚀 ~ file: content.js:24 ~ handleImageElement ~ imageElement:", imageElement)
 			imageElement.style.display = 'none';
 		} else {
 			console.log('UNABLE TO DETECT ELEMENT');

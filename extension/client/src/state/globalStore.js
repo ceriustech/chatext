@@ -21,9 +21,14 @@ class GlobalStore {
 		// If the file doesn't exist, add it to the array and emit an event
 		if (!isFileAlreadyAdded) {
 			this.uploadedFiles.push(file);
+			if (this.uploadedFiles.length > 1) {
+				console.log('Multiple files added');
+			} else {
+				console.log('Single file added');
+			}
 			console.log(
-				'🚀 ~ file: globalStore.js:15 ~ GlobalStore ~ addFile ~ file:',
-				file
+				'🚀 ~ file: globalStore.js:24 ~ GlobalStore ~ addFile ~ uploadedFiles:',
+				this.uploadedFiles
 			);
 			eventEmitter.emitEvent('fileAdded', file);
 		}

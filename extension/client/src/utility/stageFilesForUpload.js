@@ -2,14 +2,13 @@ import submitConversation from './submitConversation';
 import waitForChatGPTReady from './waitForChatGPTReady';
 import { handleFileUpload } from './handleFileUpload';
 import { globalStore } from '../state/globalStore';
+import { MAX_FILES } from './utils';
 
 let uploadedFiles = [];
 
 async function stageFilesForUpload(files) {
-	console.log("🚀 ~ file: stageFilesForUpload.js:8 ~ stageFilesForUpload ~ files:", files)
-	globalStore.addFile(files);
+	console.log("🚀 ~ file: stageFilesForUpload.js:8 ~ stageFilesForUpload ~ files:", files);
 	
-	const MAX_FILES = 6;
 	if (files.length > MAX_FILES) {
 		console.log(`You can't upload more than ${MAX_FILES} files.`);
 		return;
@@ -17,6 +16,9 @@ async function stageFilesForUpload(files) {
 
 	for (let i = 0; i < files.length; i++) {
 		const file = files[i];
+
+		globalStore.addFile(file);
+
 		const text = await handleFileUpload(file).catch((err) => {
 			console.error('Error while uploading file:', err);
 		});
@@ -34,7 +36,6 @@ async function stageFilesForUpload(files) {
 
 		uploadedFiles.push({ file, text });
 	}
-	// updateFileIconAndCount(); // Assuming this function updates the UI
 }
 
 export default stageFilesForUpload;
