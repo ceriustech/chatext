@@ -3,12 +3,12 @@ class EventEmitter {
 		this.eventListeners = {};
 	}
 
-	addEventListener(event, callback) {
+	on(event, callback) {
 		if (!this.eventListeners[event]) this.eventListeners[event] = [];
 		this.eventListeners[event].push(callback);
 	}
 
-	emitEvent(event, data) {
+	emit(event, data) {
 		(this.eventListeners[event] || []).forEach((cb) => cb(data));
 	}
 }
