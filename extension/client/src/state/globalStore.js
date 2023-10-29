@@ -6,6 +6,7 @@ class GlobalStore {
 	}
 
 	addFile(file) {
+		if (!file) return;
 		// Limit the number of files to 6
 		if (this.uploadedFiles.length >= 6) {
 			eventEmitter.emitEvent('fileLimitReached', {
@@ -30,13 +31,13 @@ class GlobalStore {
 				'🚀 ~ file: globalStore.js:24 ~ GlobalStore ~ addFile ~ uploadedFiles:',
 				this.uploadedFiles
 			);
-			eventEmitter.emitEvent('fileAdded', file);
+			eventEmitter.emit('fileAdded', file);
 		}
 	}
 
 	removeFile(file) {
 		this.uploadedFiles = this.uploadedFiles.filter((f) => f !== file);
-		eventEmitter.emitEvent('fileRemoved', file);
+		eventEmitter.emit('fileRemoved', file);
 	}
 }
 

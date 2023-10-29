@@ -3,6 +3,13 @@ class EventEmitter {
 		this.eventListeners = {};
 	}
 
+	logger() {
+		console.log(
+			'🚀 ~ file: eventEmitter.js:12 ~ EventEmitter ~ this.eventListeners',
+			this.eventListeners
+		);
+	}
+
 	on(event, callback) {
 		if (!this.eventListeners[event]) this.eventListeners[event] = [];
 		this.eventListeners[event].push(callback);
