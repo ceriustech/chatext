@@ -1,7 +1,9 @@
 (function () {
 	const targetElementSelector = '#prompt-textarea';
+	const chatGPTImageElementSelector = 'div[type*="button"]';
 	let targetElement;
 	let lastParentNode;
+	let imageElement;
 	const mediaQuery = window.matchMedia('(max-width: 768px)');
 	let eventListenerAdded = false;
 	let eventListenerCounter = 0;
@@ -16,9 +18,18 @@
 		}
 	}
 
+	function handleImageElement(selector) {
+		imageElement = document.querySelector(selector);
+		if (imageElement) {
+			imageElement.style.display = 'none';
+		} else {
+			console.log('UNABLE TO DETECT ELEMENT');
+		}
+	}
+
 	function createAndInsertButton() {
 		targetElement = document.querySelector(targetElementSelector);
-
+		
 		function setAndLoadScript() {
 			if (targetElement && targetElement.parentElement !== lastParentNode) {
 				lastParentNode = targetElement.parentElement;
@@ -48,7 +59,7 @@
 								chatExtContainer
 							);
 							lastParentNode.style.flexDirection = 'row';
-							lastParentNode.style.position = 'relative';
+							lastParentNode.style.position = 'relative';				
 						}, 100);
 					};
 				}
@@ -60,6 +71,7 @@
 
 	const observer = new MutationObserver((mutations) => {
 		createAndInsertButton();
+		handleImageElement(chatGPTImageElementSelector);
 	});
 
 	observer.observe(document.body, {

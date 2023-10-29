@@ -2,20 +2,43 @@ import { LitElement, html, css } from 'lit';
 import '../../../Buttons/SubmitFile';
 import '../../../FileIcon';
 import getEventHandler from '../../../../utility/getEventHandler';
+import { globalStore } from '../../../../state/globalStore';
+import { eventEmitter } from '../../../../state/eventEmitter';
 
 class FileUploader extends LitElement {
 	static properties = {
 		isOpen: { type: Boolean },
+		uploadedFiles: { type: Array },
 	};
 
 	constructor() {
 		super();
 		this.isOpen = false;
+		this.uploadedFiles = [];
+		this.testArray = [1, 2, 3, 4, 5, 6];
+		eventEmitter.on('fileAdded', this.handleFileAddedEvent);
 	}
 
-	closeModal() {
-		this.isOpen = false;
-		this.requestUpdate();
+	handleFileAddedEvent = (file) => {
+		if (!file) return;
+		console.log('🚀 ~ file: FileUploader.js:24 ~ FileUploader ~ file:', file);
+
+		eventEmitter.logger();
+
+		this.uploadedFiles = [...globalStore.uploadedFiles];
+		console.log(
+			'🚀 ~ file: FileUploader.js:42 ~ handleFileAddedEvent ~ this.uploadedFiles:',
+			this.uploadedFiles
+		);
+	};
+
+	renderUploadedFiles(files) {
+		console.log(
+			'🚀 ~ file: FileUploader.js:41 ~ FileUploader ~ renderUploadedFiles ~ files:',
+			files
+		);
+
+		return files.map((file) => html`<file-icon></file-icon>`);
 	}
 
 	static styles = css`
@@ -123,7 +146,9 @@ class FileUploader extends LitElement {
 					<h2 class="file-upload-info-h">Drag file here</h2>
 					<p class="file-upload-info-p">or, click to browse</p>
 				</div>
-				<div class="file-upload-icon-wrapper"></div>
+				<div class="file-upload-icon-wrapper">
+					${this.renderUploadedFiles(this.uploadedFiles)}
+				</div>
 				<submit-file-button
 					class="submit-file-btn-container"
 				></submit-file-button>
