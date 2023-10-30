@@ -38,7 +38,19 @@ class FileUploader extends LitElement {
 			files
 		);
 
-		return files.map((file) => html`<file-icon></file-icon>`);
+		return files.map(
+			(file, idx) =>
+				html`<file-icon
+					.id=${file.name}
+					.fileName=${file.name}
+					.fileExtension=${this.getFileExtension(file.name)}
+					.key=${idx}
+				></file-icon>`
+		);
+	}
+
+	getFileExtension(fileName) {
+		return fileName.split('.').pop();
 	}
 
 	static styles = css`

@@ -3,12 +3,21 @@ import '../Buttons/RemoveFileIcon';
 import removeFile from '../../utility/removeFile';
 
 class FileIcon extends LitElement {
+	static properties = {
+		id: { type: String },
+		fileName: { type: String },
+		fileExtension: { type: String },
+		key: { type: Number },
+	};
+
 	static styles = css`
 		.file-icon-container {
+			font-size: 12px;
 			width: 56px;
 			display: flex;
 			flex-direction: column;
 			align-items: end;
+			position: relative;
 		}
 
 		.file-icon-wrapper {
@@ -24,16 +33,37 @@ class FileIcon extends LitElement {
 
 		.file-icon-info {
 			color: #999da5;
+			cursor: pointer;
+			font-size: 0.9rem;
 			margin: 0px;
 			line-height: 0;
 			padding-right: 5px;
+		}
+
+		.file-icon-info_hover-text {
+			display: none;
+			position: absolute;
+			top: 58px;
+			left: 4px;
+			background-color: #7e1e89;
+			border-radius: 10px;
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+			z-index: 1;
+			padding: 5px 7px;
+			color: #fff;
+			line-height: 1.5;
+			text-align: center;
+		}
+
+		.file-icon-info:hover .file-icon-info_hover-text {
+			display: block;
 		}
 	`;
 
 	render() {
 		return html`
 			<div class="file-icon-container">
-				<div class="file-icon-wrapper">
+				<div id=${this.id} class="file-icon-wrapper">
 					<div class="file-icon-remove-btn" @click=${removeFile}>
 						<remove-file-icon></remove-file-icon>
 					</div>
@@ -86,7 +116,10 @@ class FileIcon extends LitElement {
 						</g>
 					</svg>
 				</div>
-				<p class="file-icon-info">.py</p>
+				<p class="file-icon-info">
+					<span class="file-icon-info_hover-text">${this.fileName}</span>.${this
+						.fileExtension}
+				</p>
 			</div>
 		`;
 	}
