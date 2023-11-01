@@ -1,6 +1,4 @@
 import { LitElement, html, css } from 'lit';
-import '../Buttons/RemoveFileIcon';
-import removeFile from '../../utility/removeFile';
 
 class FileIcon extends LitElement {
 	static properties = {
@@ -23,12 +21,6 @@ class FileIcon extends LitElement {
 		.file-icon-wrapper {
 			width: 100%;
 			position: relative;
-		}
-
-		.file-icon-remove-btn {
-			position: absolute;
-			left: 37px;
-			bottom: 41px;
 		}
 
 		.file-icon-info {
@@ -64,9 +56,6 @@ class FileIcon extends LitElement {
 		return html`
 			<div class="file-icon-container">
 				<div id=${this.id} class="file-icon-wrapper">
-					<div class="file-icon-remove-btn" @click=${removeFile}>
-						<remove-file-icon></remove-file-icon>
-					</div>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						xmlns:xlink="http://www.w3.org/1999/xlink"

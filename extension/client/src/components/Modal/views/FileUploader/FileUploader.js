@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import '../../../Buttons/SubmitFile';
+import '../../../Buttons/RemoveFileIcon';
 import '../../../FileIcon';
 import getEventHandler from '../../../../utility/getEventHandler';
 import { globalStore } from '../../../../state/globalStore';
@@ -16,10 +17,11 @@ class FileUploader extends LitElement {
 		this.isOpen = false;
 		this.uploadedFiles = [];
 		this.testArray = [1, 2, 3, 4, 5, 6];
-		eventEmitter.on('fileAdded', this.handleFileAddedEvent);
+		eventEmitter.on('fileAdded', this.handleFileChangeEvent);
+		eventEmitter.on('fileRemoved', this.handleFileChangeEvent);
 	}
 
-	handleFileAddedEvent = (file) => {
+	handleFileChangeEvent = (file) => {
 		if (!file) return;
 		console.log('🚀 ~ file: FileUploader.js:24 ~ FileUploader ~ file:', file);
 
@@ -40,12 +42,19 @@ class FileUploader extends LitElement {
 
 		return files.map(
 			(file, idx) =>
-				html`<file-icon
-					.id=${file.name}
-					.fileName=${file.name}
-					.fileExtension=${this.getFileExtension(file.name)}
-					.key=${idx}
-				></file-icon>`
+				html`
+					<div>
+						<div class="file-icon-remove-btn" @click=${globalStore.removeFile}>
+							<remove-file-icon></remove-file-icon>
+						</div>
+						<file-icon
+							.id=${file.name}
+							.fileName=${file.name}
+							.fileExtension=${this.getFileExtension(file.name)}
+							.key=${idx}
+						></file-icon>
+					</div>
+				`
 		);
 	}
 
@@ -89,6 +98,14 @@ class FileUploader extends LitElement {
 			gap: 5px;
 			align-items: flex-start;
 			margin: 10px 0 25px;
+			position: relative;
+		}
+
+		.file-icon-remove-btn {
+			position: absolute;
+			left: 32px;
+			bottom: 42px;
+			z-index: 1;
 		}
 
 		.submit-file-btn-container {
