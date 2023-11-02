@@ -25,30 +25,10 @@ class FileIcon extends LitElement {
 
 		.file-icon-info {
 			color: #999da5;
-			cursor: pointer;
 			font-size: 0.9rem;
 			margin: 0px;
 			line-height: 0;
 			padding-right: 5px;
-		}
-
-		.file-icon-info_hover-text {
-			display: none;
-			position: absolute;
-			top: 58px;
-			left: 4px;
-			background-color: #7e1e89;
-			border-radius: 10px;
-			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-			z-index: 1;
-			padding: 5px 7px;
-			color: #fff;
-			line-height: 1.5;
-			text-align: center;
-		}
-
-		.file-icon-info:hover .file-icon-info_hover-text {
-			display: block;
 		}
 	`;
 
@@ -105,10 +85,7 @@ class FileIcon extends LitElement {
 						</g>
 					</svg>
 				</div>
-				<p class="file-icon-info">
-					<span class="file-icon-info_hover-text">${this.fileName}</span>.${this
-						.fileExtension}
-				</p>
+				<p class="file-icon-info">.${this.fileExtension}</p>
 			</div>
 		`;
 	}
