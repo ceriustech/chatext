@@ -26,14 +26,18 @@ class GlobalStore {
 		}
 	}
 
-	removeFile(file) {
-		this.uploadedFiles = this.uploadedFiles.filter((f) => f !== file);
+	removeFile(fileName) {
+		if (!fileName) return;
 
 		console.log(
-			'🚀 ~ file: globalStore.js:37 ~ GlobalStore ~ addFile ~ uploadedFiles:',
-			this.uploadedFiles
+			'🚀 ~ file: globalStore.js:30 ~ GlobalStore ~ removeFile ~ fileName:',
+			fileName
 		);
-		eventEmitter.emit('fileRemoved', file);
+
+		this.uploadedFiles = this.uploadedFiles.filter(
+			(file) => file.name !== fileName
+		);
+		eventEmitter.emit('fileRemoved', fileName);
 	}
 }
 

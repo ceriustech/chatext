@@ -43,15 +43,17 @@ class FileUploader extends LitElement {
 		return files.map(
 			(file, idx) =>
 				html`
-					<div>
-						<div class="file-icon-remove-btn" @click=${globalStore.removeFile}>
+					<div class="file-upload-icon-wrapper">
+						<div
+							class="file-icon-remove-btn"
+							@click=${() => globalStore.removeFile(file.name)}
+						>
 							<remove-file-icon></remove-file-icon>
 						</div>
 						<file-icon
 							.id=${file.name}
 							.fileName=${file.name}
 							.fileExtension=${this.getFileExtension(file.name)}
-							.key=${idx}
 						></file-icon>
 					</div>
 				`
@@ -92,12 +94,15 @@ class FileUploader extends LitElement {
 			color: #7e1e89;
 		}
 
-		.file-upload-icon-wrapper {
+		.file-upload-icon-container {
 			display: flex;
 			flex-direction: row;
 			gap: 5px;
 			align-items: flex-start;
 			margin: 10px 0 25px;
+		}
+
+		.file-upload-icon-wrapper {
 			position: relative;
 		}
 
@@ -175,7 +180,7 @@ class FileUploader extends LitElement {
 					<h2 class="file-upload-info-h">Drag file here</h2>
 					<p class="file-upload-info-p">or, click to browse</p>
 				</div>
-				<div class="file-upload-icon-wrapper">
+				<div class="file-upload-icon-container">
 					${this.renderUploadedFiles(this.uploadedFiles)}
 				</div>
 				<submit-file-button
