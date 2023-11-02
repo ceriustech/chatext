@@ -23,23 +23,10 @@ class FileUploader extends LitElement {
 
 	handleFileChangeEvent = (file) => {
 		if (!file) return;
-		console.log('🚀 ~ file: FileUploader.js:24 ~ FileUploader ~ file:', file);
-
-		eventEmitter.logger();
-
 		this.uploadedFiles = [...globalStore.uploadedFiles];
-		console.log(
-			'🚀 ~ file: FileUploader.js:42 ~ handleFileAddedEvent ~ this.uploadedFiles:',
-			this.uploadedFiles
-		);
 	};
 
 	renderUploadedFiles(files) {
-		console.log(
-			'🚀 ~ file: FileUploader.js:41 ~ FileUploader ~ renderUploadedFiles ~ files:',
-			files
-		);
-
 		return files.map(
 			(file, idx) =>
 				html`

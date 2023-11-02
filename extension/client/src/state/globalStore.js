@@ -29,11 +29,6 @@ class GlobalStore {
 	removeFile(fileName) {
 		if (!fileName) return;
 
-		console.log(
-			'🚀 ~ file: globalStore.js:30 ~ GlobalStore ~ removeFile ~ fileName:',
-			fileName
-		);
-
 		this.uploadedFiles = this.uploadedFiles.filter(
 			(file) => file.name !== fileName
 		);
