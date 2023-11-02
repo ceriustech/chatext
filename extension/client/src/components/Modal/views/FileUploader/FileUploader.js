@@ -10,33 +10,65 @@ class FileUploader extends LitElement {
 	static properties = {
 		isOpen: { type: Boolean },
 		uploadedFiles: { type: Array },
+		showFileName: { type: Boolean },
+		currentFileName: { type: String },
 	};
 
 	constructor() {
 		super();
 		this.isOpen = false;
 		this.uploadedFiles = [];
-		this.testArray = [1, 2, 3, 4, 5, 6];
 		eventEmitter.on('fileAdded', this.handleFileChangeEvent);
 		eventEmitter.on('fileRemoved', this.handleFileChangeEvent);
+		eventEmitter.on('fileRemoved', this.setShowFileName);
 	}
+
+	setShowFileName = (value, forceHide = false) => {
+		if (forceHide) {
+			this.showFileName = false;
+		} else {
+			this.showFileName = value || false;
+		}
+	};
 
 	handleFileChangeEvent = (file) => {
 		if (!file) return;
 		this.uploadedFiles = [...globalStore.uploadedFiles];
+		if (this.currentFileName === file.name) {
+			this.setShowFileName(false);
+			this.currentFileName = '';
+		}
 	};
+
+	handleMouseEnter(fileName) {
+		this.setShowFileName(true);
+		this.currentFileName = fileName;
+	}
+
+	handleMouseLeave() {
+		this.setShowFileName();
+		this.currentFileName = '';
+	}
 
 	renderUploadedFiles(files) {
 		return files.map(
 			(file, idx) =>
 				html`
-					<div class="file-upload-icon-wrapper">
+					<div
+						class="file-upload-icon-wrapper"
+						@mouseenter=${() => this.handleMouseEnter(file.name)}
+						@mouseleave=${this.handleMouseLeave}
+					>
 						<div
 							class="file-icon-remove-btn"
-							@click=${() => globalStore.removeFile(file.name)}
+							@click=${() => {
+								globalStore.removeFile(file.name);
+								this.setShowFileName(false, true);
+							}}
 						>
 							<remove-file-icon></remove-file-icon>
 						</div>
+
 						<file-icon
 							.id=${file.name}
 							.fileName=${file.name}
@@ -98,6 +130,19 @@ class FileUploader extends LitElement {
 			left: 32px;
 			bottom: 42px;
 			z-index: 1;
+		}
+
+		.file-upload-bottom {
+			display: flex;
+			align-items: baseline;
+			font-size: 12px;
+			justify-content: space-between;
+		}
+
+		.file-upload_name-info p {
+			color: #6c6f72;
+			font-size: 1rem;
+			margin: 0;
 		}
 
 		.submit-file-btn-container {
@@ -170,9 +215,14 @@ class FileUploader extends LitElement {
 				<div class="file-upload-icon-container">
 					${this.renderUploadedFiles(this.uploadedFiles)}
 				</div>
-				<submit-file-button
-					class="submit-file-btn-container"
-				></submit-file-button>
+				<div class="file-upload-bottom">
+					<div class="file-upload_name-info">
+						${this.showFileName && html`<p>${this.currentFileName}</p>`}
+					</div>
+					<submit-file-button
+						class="submit-file-btn-container"
+					></submit-file-button>
+				</div>
 			</div>
 		`;
 	}
