@@ -34,6 +34,13 @@ class GlobalStore {
 		);
 		eventEmitter.emit('fileRemoved', fileName);
 	}
+
+	removeAllFiles() {
+		while (this.uploadedFiles.length > 0) {
+			const fileName = this.uploadedFiles[0].name;
+			this.removeFile(fileName);
+		}
+	}
 }
 
 export const globalStore = new GlobalStore();

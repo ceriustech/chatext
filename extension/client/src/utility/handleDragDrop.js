@@ -36,6 +36,17 @@ async function handleDragDrop(event) {
 	// ... (no changes here)
 	event.preventDefault();
 	const files = event.dataTransfer.files;
+
+	if (!files.length) {
+		console.log('No file selected.');
+		return;
+	}
+
+	console.log(
+		'🚀 ~ file: handleDragDrop.js:39 ~ handleDragDrop ~ files:',
+		files
+	);
+
 	stageFilesForUpload(files);
 }
 
