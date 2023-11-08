@@ -1,6 +1,7 @@
 (function () {
 	const targetElementSelector = '#prompt-textarea';
-	const chatGPTImageElementSelector = 'div[type*="button"]';
+	const chatGPTImageElementSelector =
+		'.absolute.left-4.bottom-2.gizmo\\:md\\:bottom-3.md\\:left-4.gizmo\\:left-2.gizmo\\:md\\:left-4.md\\:bottom-3\\.5';
 	let targetElement;
 	let lastParentNode;
 	let imageElement;
@@ -29,7 +30,7 @@
 
 	function createAndInsertButton() {
 		targetElement = document.querySelector(targetElementSelector);
-		
+
 		function setAndLoadScript() {
 			if (targetElement && targetElement.parentElement !== lastParentNode) {
 				lastParentNode = targetElement.parentElement;
@@ -59,7 +60,7 @@
 								chatExtContainer
 							);
 							lastParentNode.style.flexDirection = 'row';
-							lastParentNode.style.position = 'relative';				
+							lastParentNode.style.position = 'relative';
 						}, 100);
 					};
 				}

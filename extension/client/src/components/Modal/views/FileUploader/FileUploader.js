@@ -86,7 +86,7 @@ class FileUploader extends LitElement {
 
 	static styles = css`
 		.file-upload-wrapper {
-			border: 2px dashed #7e1e89;
+			border: 1px dashed #7e1e89;
 			border-radius: 10px;
 			display: flex;
 			flex-direction: column;
@@ -119,6 +119,7 @@ class FileUploader extends LitElement {
 			flex-direction: row;
 			gap: 5px;
 			align-items: flex-start;
+			height: 65px;
 			margin: 10px 0 25px;
 		}
 
