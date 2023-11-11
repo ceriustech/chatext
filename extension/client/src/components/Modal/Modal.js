@@ -76,6 +76,7 @@ class Modal extends LitElement {
 			border-radius: 10px;
 			margin: 15% auto;
 			padding: 20px;
+			height: 454px;
 			max-width: 365px;
 			width: 100%;
 			position: relative;
