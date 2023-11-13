@@ -3,7 +3,6 @@ import '../../../Buttons/SubmitFile';
 import '../../../Buttons/RemoveFileIcon';
 import '../../../FileIcon';
 import getEventHandler from '../../../../utility/getEventHandler';
-import submitFiles from '../../../../utility/submitFiles';
 import { globalStore } from '../../../../state/globalStore';
 import { eventEmitter } from '../../../../state/eventEmitter';
 
