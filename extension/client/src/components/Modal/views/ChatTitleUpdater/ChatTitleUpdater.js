@@ -34,12 +34,33 @@ class ChatTitleUpdater extends LitElement {
 	}
 
 	static styles = css`
-		.chat-titles-wwrapper {
+		.chat-titles-border-wrapper {
 			border: 1px solid gray;
+			border-radius: 10px;
+			height: 200px;
+			overflow: hidden;
+		}
+
+		.chat-titles-wrapper {
 			border-radius: 10px;
 			height: 200px;
 			padding: 12px;
 			overflow: scroll;
+		}
+
+		.chat-titles-wrapper::-webkit-scrollbar-track {
+			background: trasparent;
+		}
+
+		.chat-titles-wrapper::-webkit-scrollbar {
+			width: 8px;
+		}
+
+		.chat-titles-wrapper::-webkit-scrollbar-thumb {
+			background-color: #7e1e89;
+			border-radius: 10px;
+			border: 2px solid #fefefe;
+			width: 3px;
 		}
 
 		.chat-title {
@@ -80,14 +101,16 @@ class ChatTitleUpdater extends LitElement {
 	render() {
 		return html`
 			<div id="chat-title-updater" class="chat-title-updater-container">
-				<div class="chat-titles-wwrapper">
-					${this.chatTitles.map(
-						(chat, idx) => html`
-							<div class="chat-title" data-id="${idx}">
-								<p>${chat.title}</p>
-							</div>
-						`
-					)}
+				<div class="chat-titles-border-wrapper">
+					<div class="chat-titles-wrapper">
+						${this.chatTitles.map(
+							(chat, idx) => html`
+								<div class="chat-title" data-id="${idx}">
+									<p>${chat.title}</p>
+								</div>
+							`
+						)}
+					</div>
 				</div>
 				<div class="chat-title-updater-bottom">
 					<div class="chat-title-updater-input-wrapper">
