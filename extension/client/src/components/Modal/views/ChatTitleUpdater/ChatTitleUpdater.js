@@ -132,10 +132,8 @@ class ChatTitleUpdater extends LitElement {
 					<div class="chat-title-btn-container">
 						<save-button
 							label="Update Chat Name"
-							.handleClick=${changeChatTitle(
-								this.selectedTitle,
-								this.currentInputValue
-							)}
+							.handleClick=${() =>
+								changeChatTitle(this.selectedTitle, this.currentInputValue)}
 						></save-button>
 						<save-button
 							label="save"
