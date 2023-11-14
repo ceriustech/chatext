@@ -8,6 +8,7 @@ class ChatTitleUpdater extends LitElement {
 		chatTitles: { type: Array },
 		selectedTitle: { type: String },
 		currentInputValue: { type: String },
+		selectedChatId: { type: Number },
 	};
 
 	constructor() {
@@ -27,8 +28,9 @@ class ChatTitleUpdater extends LitElement {
 		}));
 	}
 
-	onTitleClick(title) {
+	onTitleClick(title, id) {
 		this.selectedTitle = title;
+		this.selectedChatId = id;
 		this.requestUpdate();
 	}
 
@@ -111,7 +113,7 @@ class ChatTitleUpdater extends LitElement {
 								<div
 									class="chat-title"
 									data-id=${idx}
-									@click=${() => this.onTitleClick(chat.title)}
+									@click=${() => this.onTitleClick(chat.title, idx)}
 								>
 									<p>${chat.title}</p>
 								</div>
@@ -133,7 +135,7 @@ class ChatTitleUpdater extends LitElement {
 						<save-button
 							label="Update Chat Name"
 							.handleClick=${() =>
-								changeChatTitle(this.selectedTitle, this.currentInputValue)}
+								changeChatTitle(this.selectedChatId, this.currentInputValue)}
 						></save-button>
 						<save-button
 							label="save"

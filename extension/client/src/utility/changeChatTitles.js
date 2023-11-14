@@ -1,8 +1,10 @@
-function changeChatTitle(oldTitle, newTitle) {
-	const chatTitles = '.relative.grow.overflow-hidden.whitespace-nowrap';
+function changeChatTitle(selectedChatId, newTitle) {
+	const chatTitles = document.querySelectorAll(
+		'.relative.grow.overflow-hidden.whitespace-nowrap'
+	);
 
-	document.querySelectorAll(chatTitles).forEach((chatTitle) => {
-		if (chatTitle.textContent.trim() === oldTitle) {
+	chatTitles.forEach((chatTitle, idx) => {
+		if (idx === selectedChatId) {
 			chatTitle.textContent = newTitle;
 		}
 	});
