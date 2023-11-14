@@ -6,12 +6,16 @@ import changeChatTitle from '../../../../utility/changeChatTitles';
 class ChatTitleUpdater extends LitElement {
 	static properties = {
 		chatTitles: { type: Array },
+		selectedTitle: { type: String },
+		currentInputValue: { type: String },
 	};
 
 	constructor() {
 		super();
 		this.chatTitles = this.chatTitles =
 			JSON.parse(localStorage.getItem('chatTitles')) || this.getChatTitles();
+		this.selectedTitle = '';
+		this.currentInputValue = '';
 	}
 
 	getChatTitles() {
@@ -23,14 +27,13 @@ class ChatTitleUpdater extends LitElement {
 		}));
 	}
 
-	saveTitle(id, newTitle) {
-		// Update the title in the component's state
-		this.chatTitles = this.chatTitles.map((chat) =>
-			chat.id === id ? { ...chat, title: newTitle } : chat
-		);
+	onTitleClick(title) {
+		this.selectedTitle = title;
+		this.requestUpdate();
+	}
 
-		// Save the updated titles to local storage
-		localStorage.setItem('chatTitles', JSON.stringify(this.chatTitles));
+	handleInputChange(event) {
+		this.currentInputValue = event.target.value;
 	}
 
 	static styles = css`
@@ -105,7 +108,11 @@ class ChatTitleUpdater extends LitElement {
 					<div class="chat-titles-wrapper">
 						${this.chatTitles.map(
 							(chat, idx) => html`
-								<div class="chat-title" data-id="${idx}">
+								<div
+									class="chat-title"
+									data-id=${idx}
+									@click=${() => this.onTitleClick(chat.title)}
+								>
 									<p>${chat.title}</p>
 								</div>
 							`
@@ -117,13 +124,18 @@ class ChatTitleUpdater extends LitElement {
 						<input
 							type="text"
 							class="chat-title-updater-input"
-							placeholder="some title"
+							.value=${this.currentInputValue}
+							placeholder=${this.selectedTitle || 'Select a chat title...'}
+							@input=${this.handleInputChange}
 						/>
 					</div>
 					<div class="chat-title-btn-container">
 						<save-button
 							label="Update Chat Name"
-							.handleClick=${changeChatTitle}
+							.handleClick=${changeChatTitle(
+								this.selectedTitle,
+								this.currentInputValue
+							)}
 						></save-button>
 						<save-button
 							label="save"
