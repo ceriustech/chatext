@@ -1,9 +1,13 @@
 import { LitElement, html, css } from 'lit';
-import submitFiles from '../../../utility/submitFiles';
 
-class SubmitFile extends LitElement {
+class SaveButton extends LitElement {
+	static properties = {
+		label: { type: String },
+		handleClick: { type: Function },
+	};
+
 	static styles = css`
-		.submit-file-btn {
+		.save-chat-title-btn {
 			background-color: #fff;
 			border: 1px solid #6c6f72;
 			border-radius: 4px;
@@ -15,10 +19,10 @@ class SubmitFile extends LitElement {
 			font-weight: 600;
 			margin: 10px 2px;
 			cursor: pointer;
-			color: #000;
+			color: #6c6f72;
 		}
 
-		.submit-file-btn:hover {
+		.save-chat-title-btn:hover {
 			border: 1px solid #7e1e89;
 		}
 
@@ -29,14 +33,12 @@ class SubmitFile extends LitElement {
 	`;
 
 	render() {
-		return html`
-			<button class="submit-file-btn" @click=${submitFiles}>
-				<p>Submit</p>
-			</button>
-		`;
+		return html` <button class="save-chat-title-btn" @click=${this.handleClick}>
+			<p>${this.label}</p>
+		</button>`;
 	}
 }
 
-customElements.define('submit-file-button', SubmitFile);
+customElements.define('save-button', SaveButton);
 
-export default SubmitFile;
+export default SaveButton;
