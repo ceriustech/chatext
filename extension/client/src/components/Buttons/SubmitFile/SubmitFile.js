@@ -6,7 +6,7 @@ class SubmitFile extends LitElement {
 		.submit-file-btn {
 			background-color: #fff;
 			border: 1px solid #6c6f72;
-			border-radius: 10px;
+			border-radius: 4px;
 			padding: 5px 16px;
 			text-align: center;
 			text-decoration: none;

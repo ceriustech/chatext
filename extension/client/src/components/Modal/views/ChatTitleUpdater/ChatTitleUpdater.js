@@ -1,7 +1,9 @@
 import { LitElement, html, css } from 'lit';
 import '../../../Buttons/Save';
+import '../../../../components/ColorPicker';
 import saveChatTitles from '../../../../utility/saveChatTitles';
 import changeChatTitle from '../../../../utility/changeChatTitles';
+import { eventEmitter } from '../../../../state/eventEmitter';
 
 class ChatTitleUpdater extends LitElement {
 	static properties = {
@@ -9,6 +11,7 @@ class ChatTitleUpdater extends LitElement {
 		selectedTitle: { type: String },
 		currentInputValue: { type: String },
 		selectedChatId: { type: Number },
+		selectedColor: { type: String },
 	};
 
 	constructor() {
@@ -17,6 +20,12 @@ class ChatTitleUpdater extends LitElement {
 			JSON.parse(localStorage.getItem('chatTitles')) || this.getChatTitles();
 		this.selectedTitle = '';
 		this.currentInputValue = '';
+		this.selectedChatId = null;
+		this.selectedColor = '';
+		eventEmitter.on('colorChanged', (data) => {
+			this.selectedColor = data.color;
+			this.requestUpdate();
+		});
 	}
 
 	getChatTitles() {
@@ -90,7 +99,7 @@ class ChatTitleUpdater extends LitElement {
 			padding: 6px 20px;
 			margin: 8px 0;
 			display: inline-block;
-			border: 1px solid #ccc;
+			border: 1px solid gray;
 			border-radius: 4px;
 			box-sizing: border-box;
 			width: 100%;
@@ -131,11 +140,18 @@ class ChatTitleUpdater extends LitElement {
 							@input=${this.handleInputChange}
 						/>
 					</div>
+					<div class="chat-title-updater-color-picker-wrapper">
+						<color-picker></color-picker>
+					</div>
 					<div class="chat-title-btn-container">
 						<save-button
 							label="Update Chat Name"
 							.handleClick=${() =>
-								changeChatTitle(this.selectedChatId, this.currentInputValue)}
+								changeChatTitle(
+									this.selectedChatId,
+									this.currentInputValue,
+									this.selectedColor
+								)}
 						></save-button>
 						<save-button
 							label="save"

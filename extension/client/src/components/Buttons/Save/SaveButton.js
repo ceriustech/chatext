@@ -10,7 +10,7 @@ class SaveButton extends LitElement {
 		.save-chat-title-btn {
 			background-color: #fff;
 			border: 1px solid #6c6f72;
-			border-radius: 10px;
+			border-radius: 4px;
 			padding: 5px 16px;
 			text-align: center;
 			text-decoration: none;
@@ -19,7 +19,7 @@ class SaveButton extends LitElement {
 			font-weight: 600;
 			margin: 10px 2px;
 			cursor: pointer;
-			color: #000;
+			color: #6c6f72;
 		}
 
 		.save-chat-title-btn:hover {
