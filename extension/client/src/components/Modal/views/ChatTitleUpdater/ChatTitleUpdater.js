@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import '../../../Buttons/Save';
+import '../../../Buttons/Button';
 import '../../../../components/ColorPicker';
 import saveChatTitles from '../../../../utility/saveChatTitles';
 import changeChatTitle from '../../../../utility/changeChatTitles';
@@ -8,6 +8,7 @@ import { eventEmitter } from '../../../../state/eventEmitter';
 class ChatTitleUpdater extends LitElement {
 	static properties = {
 		chatTitles: { type: Array },
+		updatedTitles: { type: Object },
 		selectedTitle: { type: String },
 		currentInputValue: { type: String },
 		selectedChatId: { type: Number },
@@ -18,6 +19,7 @@ class ChatTitleUpdater extends LitElement {
 		super();
 		this.chatTitles = this.chatTitles =
 			JSON.parse(localStorage.getItem('chatTitles')) || this.getChatTitles();
+		this.updatedTitles = {};
 		this.selectedTitle = '';
 		this.currentInputValue = '';
 		this.selectedChatId = null;
@@ -31,8 +33,8 @@ class ChatTitleUpdater extends LitElement {
 	getChatTitles() {
 		const selector = '.relative.grow.overflow-hidden.whitespace-nowrap';
 		const nodes = Array.from(document.querySelectorAll(selector));
-		return nodes.map((node) => ({
-			id: node.getAttribute('data-id'),
+		return nodes.map((node, idx) => ({
+			id: idx,
 			title: node.textContent.trim(),
 		}));
 	}
@@ -45,7 +47,25 @@ class ChatTitleUpdater extends LitElement {
 
 	handleInputChange(event) {
 		this.currentInputValue = event.target.value;
+		if (this.selectedChatId !== null) {
+			this.updatedTitles[this.selectedChatId] = this.currentInputValue;
+		}
 	}
+
+	// Inside your ChatTitleUpdater component
+	saveUpdatedChatTitles = () => {
+		// Only save titles that have been updated
+		Object.keys(this.updatedTitles).forEach((id) => {
+			const newTitle = this.updatedTitles[id];
+			if (newTitle) {
+				this.chatTitles[id].title = newTitle;
+			}
+		});
+
+		localStorage.setItem('chatTitles', JSON.stringify(this.chatTitles));
+		this.updatedTitles = {}; // Clear the updatedTitles after saving
+		this.requestUpdate();
+	};
 
 	static styles = css`
 		.chat-titles-border-wrapper {
@@ -144,7 +164,7 @@ class ChatTitleUpdater extends LitElement {
 						<color-picker></color-picker>
 					</div>
 					<div class="chat-title-btn-container">
-						<save-button
+						<button-misc
 							label="Update Chat Name"
 							.handleClick=${() =>
 								changeChatTitle(
@@ -152,11 +172,11 @@ class ChatTitleUpdater extends LitElement {
 									this.currentInputValue,
 									this.selectedColor
 								)}
-						></save-button>
-						<save-button
+						></button-misc>
+						<button-misc
 							label="save"
-							.handleClick=${saveChatTitles}
-						></save-button>
+							.handleClick=${this.saveUpdatedChatTitles}
+						></button-misc>
 					</div>
 				</div>
 			</div>

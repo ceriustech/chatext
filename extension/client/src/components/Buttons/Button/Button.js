@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit';
 
-class SaveButton extends LitElement {
+class Button extends LitElement {
 	static properties = {
 		label: { type: String },
 		handleClick: { type: Function },
@@ -39,6 +39,6 @@ class SaveButton extends LitElement {
 	}
 }
 
-customElements.define('save-button', SaveButton);
+customElements.define('button-misc', Button);
 
-export default SaveButton;
+export default Button;
