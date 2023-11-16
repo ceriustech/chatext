@@ -1,8 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import '../../../Buttons/Button';
 import '../../../../components/ColorPicker';
-import saveChatTitles from '../../../../utility/saveChatTitles';
-import changeChatTitle from '../../../../utility/changeChatTitles';
+import { changeChatTitle } from '../../../../utility/chatTitles';
 import { eventEmitter } from '../../../../state/eventEmitter';
 
 class ChatTitleUpdater extends LitElement {
@@ -48,22 +47,29 @@ class ChatTitleUpdater extends LitElement {
 	handleInputChange(event) {
 		this.currentInputValue = event.target.value;
 		if (this.selectedChatId !== null) {
-			this.updatedTitles[this.selectedChatId] = this.currentInputValue;
+			this.updatedTitles[this.selectedChatId] = {
+				title: this.currentInputValue,
+				color: this.selectedColor,
+			};
 		}
 	}
 
 	// Inside your ChatTitleUpdater component
 	saveUpdatedChatTitles = () => {
-		// Only save titles that have been updated
+		// Iterate over the keys in updatedTitles and update chatTitles accordingly
 		Object.keys(this.updatedTitles).forEach((id) => {
-			const newTitle = this.updatedTitles[id];
-			if (newTitle) {
-				this.chatTitles[id].title = newTitle;
+			const idNum = parseInt(id);
+			const { title, color } = this.updatedTitles[idNum];
+			if (title || color) {
+				this.chatTitles = this.chatTitles.map((chat, idx) =>
+					idx === idNum ? { ...chat, title, color: this.selectedColor } : chat
+				);
 			}
 		});
 
+		// Save the updated titles to localStorage
 		localStorage.setItem('chatTitles', JSON.stringify(this.chatTitles));
-		this.updatedTitles = {}; // Clear the updatedTitles after saving
+		this.updatedTitles = {}; // Clear updated titles
 		this.requestUpdate();
 	};
 
