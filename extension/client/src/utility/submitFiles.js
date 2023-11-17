@@ -25,11 +25,6 @@ async function submitFiles() {
 
 	globalStore.removeAllFiles();
 
-	console.log(
-		'🚀 ~ file: submitFiles.js:27 ~ submitFiles ~ uploadedFiles:',
-		globalStore.uploadedFiles
-	);
-
 	this.requestUpdate();
 }
 

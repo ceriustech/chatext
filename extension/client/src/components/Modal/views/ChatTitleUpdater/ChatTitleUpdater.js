@@ -30,8 +30,14 @@ class ChatTitleUpdater extends LitElement {
 	}
 
 	getChatTitles() {
-		const selector = '.relative.grow.overflow-hidden.whitespace-nowrap';
-		const nodes = Array.from(document.querySelectorAll(selector));
+		const nodes = Array.from(
+			document.querySelectorAll(
+				'.relative.grow.overflow-hidden.whitespace-nowrap'
+			)
+		);
+
+		nodes.pop();
+
 		return nodes.map((node, idx) => ({
 			id: idx,
 			title: node.textContent.trim(),

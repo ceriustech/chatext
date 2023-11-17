@@ -28,6 +28,32 @@
 		}
 	}
 
+	function updateChatTitlesFromLocalStorage() {
+		const storedChatTitles =
+			JSON.parse(localStorage.getItem('chatTitles')) || [];
+
+		storedChatTitles.forEach((storedChat, idx) => {
+			const chatElements = document.querySelectorAll(
+				'.relative.grow.overflow-hidden.whitespace-nowrap'
+			);
+			if (
+				chatElements[idx] &&
+				chatElements[idx].textContent.trim() !== storedChat.title
+			) {
+				chatElements[idx].textContent = storedChat.title;
+				console.log(
+					'🚀 ~ file: content.js:44 ~ storedChatTitles.forEach ~ chatElements:',
+					chatElements[idx].textContent
+				);
+
+				// Optionally update the color if stored
+				if (storedChat.color) {
+					chatElements[idx].style.color = storedChat.color;
+				}
+			}
+		});
+	}
+
 	function createAndInsertButton() {
 		targetElement = document.querySelector(targetElementSelector);
 
@@ -61,6 +87,7 @@
 							);
 							lastParentNode.style.flexDirection = 'row';
 							lastParentNode.style.position = 'relative';
+							updateChatTitlesFromLocalStorage();
 						}, 100);
 					};
 				}
