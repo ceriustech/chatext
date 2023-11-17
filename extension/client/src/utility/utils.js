@@ -1,1 +1,1 @@
-export const MAX_FILES = 6;
+export const MAX_FILES = 12;
