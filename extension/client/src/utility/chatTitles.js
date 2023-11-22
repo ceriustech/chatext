@@ -1,9 +1,15 @@
-export function changeChatTitle(selectedChatId, newTitle, color) {
-	const chatTitles = document.querySelectorAll(
-		'.relative.grow.overflow-hidden.whitespace-nowrap'
-	);
+export function getChatTitles() {
+	const chatTitles = Array.from(
+		document.querySelectorAll(
+			'.relative.grow.overflow-hidden.whitespace-nowrap'
+		)
+	).filter((node) => !node.classList.contains('-space-y-px'));
 
-	chatTitles.pop();
+	return chatTitles;
+}
+
+export function changeChatTitle(selectedChatId, newTitle, color) {
+	const chatTitles = getChatTitles();
 
 	chatTitles.forEach((chatTitle, idx) => {
 		if (idx === selectedChatId) {

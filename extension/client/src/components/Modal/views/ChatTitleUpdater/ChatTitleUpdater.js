@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import '../../../Buttons/Button';
 import '../../../../components/ColorPicker';
-import { changeChatTitle } from '../../../../utility/chatTitles';
+import { changeChatTitle, getChatTitles } from '../../../../utility/chatTitles';
 import { eventEmitter } from '../../../../state/eventEmitter';
 
 class ChatTitleUpdater extends LitElement {
@@ -17,7 +17,7 @@ class ChatTitleUpdater extends LitElement {
 	constructor() {
 		super();
 		this.chatTitles = this.chatTitles =
-			JSON.parse(localStorage.getItem('chatTitles')) || this.getChatTitles();
+			JSON.parse(localStorage.getItem('chatTitles')) || this.handleChatTitles();
 		this.updatedTitles = {};
 		this.selectedTitle = '';
 		this.currentInputValue = '';
@@ -29,16 +29,10 @@ class ChatTitleUpdater extends LitElement {
 		});
 	}
 
-	getChatTitles() {
-		const nodes = Array.from(
-			document.querySelectorAll(
-				'.relative.grow.overflow-hidden.whitespace-nowrap'
-			)
-		);
+	handleChatTitles() {
+		const chatTitles = getChatTitles();
 
-		nodes.pop();
-
-		return nodes.map((node, idx) => ({
+		return chatTitles.map((node, idx) => ({
 			id: idx,
 			title: node.textContent.trim(),
 		}));
