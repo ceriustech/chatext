@@ -87,11 +87,11 @@ class Modal extends LitElement {
 			flex-direction: row;
 			align-items: center;
 			justify-content: start;
-			gap: 5px;
+			gap: 7px;
 		}
 
 		.logo-container {
-			box-shadow: rgba(0, 0, 0, 0.75) 0px 0px 5px 0px;
+			box-shadow: rgba(0, 0, 0, 0.75) 0px 0px 3px 0px;
 			border-radius: 25px;
 			padding: 5px;
 			display: flex;

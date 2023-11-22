@@ -3,6 +3,8 @@ export function changeChatTitle(selectedChatId, newTitle, color) {
 		'.relative.grow.overflow-hidden.whitespace-nowrap'
 	);
 
+	chatTitles.pop();
+
 	chatTitles.forEach((chatTitle, idx) => {
 		if (idx === selectedChatId) {
 			chatTitle.textContent = newTitle;

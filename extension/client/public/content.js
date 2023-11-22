@@ -36,6 +36,7 @@
 			const chatElements = document.querySelectorAll(
 				'.relative.grow.overflow-hidden.whitespace-nowrap'
 			);
+
 			if (
 				chatElements[idx] &&
 				chatElements[idx].textContent.trim() !== storedChat.title
@@ -87,7 +88,6 @@
 							);
 							lastParentNode.style.flexDirection = 'row';
 							lastParentNode.style.position = 'relative';
-							updateChatTitlesFromLocalStorage();
 						}, 100);
 					};
 				}
@@ -100,6 +100,7 @@
 	const observer = new MutationObserver((mutations) => {
 		createAndInsertButton();
 		handleImageElement(chatGPTImageElementSelector);
+		updateChatTitlesFromLocalStorage();
 	});
 
 	observer.observe(document.body, {
