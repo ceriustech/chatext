@@ -9,8 +9,13 @@ class PopupContainer extends LitElement {
 			text-align: center;
 		}
 
+		.header-container {
+			font-size: 12px;
+		}
+
 		.header-container a {
 			text-decoration: none;
+			font-size: 1.25rem;
 			font-weight: 600;
 		}
 	`;
