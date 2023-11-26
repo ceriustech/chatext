@@ -28,7 +28,7 @@ class PopupContainer extends LitElement {
 		return html`
       <div>
         <a href="https://chatext.app/" target="_blank">
-          <img src="assets/icons/icon-128.svg" class="logo" alt="ChatExt logo" />
+          <img src="assets/icons/icon-robot.svg" class="logo" alt="ChatExt logo" />
         </a>
       </div>
       <div class="header-container">

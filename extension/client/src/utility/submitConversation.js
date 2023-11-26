@@ -1,4 +1,4 @@
-import { PROMPT } from "../promptController";
+import { PROMPT } from '../promptController';
 
 async function submitConversation(text, part, filename) {
 	try {
@@ -18,18 +18,10 @@ async function submitConversation(text, part, filename) {
 		textarea.dispatchEvent(inputEvent);
 
 		let submitButton;
-		const target = document.querySelector(
-			'button[style*="background-color: rgb(25, 195, 125)"]'
-		);
+		const target = document.querySelector('[data-testid="send-button"]');
 
 		if (target) {
-			submitButton = document.querySelector(
-				'button[style*="background-color: rgb(25, 195, 125)"]'
-			);
-		} else {
-			submitButton = document.querySelector(
-				'button[style*="background-color: rgb(171, 104, 255)"]'
-			);
+			submitButton = target;
 		}
 		submitButton.click();
 	} catch (error) {

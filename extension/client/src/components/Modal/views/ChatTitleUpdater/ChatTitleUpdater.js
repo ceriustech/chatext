@@ -1,13 +1,13 @@
 import { LitElement, html, css } from 'lit';
-import '../../../Buttons/Save';
+import '../../../Buttons/Button';
 import '../../../../components/ColorPicker';
-import saveChatTitles from '../../../../utility/saveChatTitles';
-import changeChatTitle from '../../../../utility/changeChatTitles';
+import { changeChatTitle, getChatTitles } from '../../../../utility/chatTitles';
 import { eventEmitter } from '../../../../state/eventEmitter';
 
 class ChatTitleUpdater extends LitElement {
 	static properties = {
 		chatTitles: { type: Array },
+		updatedTitles: { type: Object },
 		selectedTitle: { type: String },
 		currentInputValue: { type: String },
 		selectedChatId: { type: Number },
@@ -17,7 +17,8 @@ class ChatTitleUpdater extends LitElement {
 	constructor() {
 		super();
 		this.chatTitles = this.chatTitles =
-			JSON.parse(localStorage.getItem('chatTitles')) || this.getChatTitles();
+			JSON.parse(localStorage.getItem('chatTitles')) || this.handleChatTitles();
+		this.updatedTitles = {};
 		this.selectedTitle = '';
 		this.currentInputValue = '';
 		this.selectedChatId = null;
@@ -28,11 +29,11 @@ class ChatTitleUpdater extends LitElement {
 		});
 	}
 
-	getChatTitles() {
-		const selector = '.relative.grow.overflow-hidden.whitespace-nowrap';
-		const nodes = Array.from(document.querySelectorAll(selector));
-		return nodes.map((node) => ({
-			id: node.getAttribute('data-id'),
+	handleChatTitles() {
+		const chatTitles = getChatTitles();
+
+		return chatTitles.map((node, idx) => ({
+			id: idx,
 			title: node.textContent.trim(),
 		}));
 	}
@@ -45,6 +46,45 @@ class ChatTitleUpdater extends LitElement {
 
 	handleInputChange(event) {
 		this.currentInputValue = event.target.value;
+		if (this.selectedChatId !== null) {
+			this.updatedTitles[this.selectedChatId] = {
+				title: this.currentInputValue,
+				color: this.selectedColor,
+			};
+		}
+	}
+
+	// Inside your ChatTitleUpdater component
+	saveUpdatedChatTitles = () => {
+		// Iterate over the keys in updatedTitles and update chatTitles accordingly
+		Object.keys(this.updatedTitles).forEach((id) => {
+			const idNum = parseInt(id);
+			const { title, color } = this.updatedTitles[idNum];
+			if (title || color) {
+				this.chatTitles = this.chatTitles.map((chat, idx) =>
+					idx === idNum ? { ...chat, title, color: this.selectedColor } : chat
+				);
+			}
+		});
+
+		// Save the updated titles to localStorage
+		localStorage.setItem('chatTitles', JSON.stringify(this.chatTitles));
+		this.updatedTitles = {}; // Clear updated titles
+		this.requestUpdate();
+	};
+
+	renderChatTitles() {
+		return this.chatTitles.map(
+			(chat, idx) => html`
+				<div
+					class="chat-title"
+					data-id=${idx}
+					@click=${() => this.onTitleClick(chat.title, idx)}
+				>
+					<p>${chat.title}</p>
+				</div>
+			`
+		);
 	}
 
 	static styles = css`
@@ -116,19 +156,7 @@ class ChatTitleUpdater extends LitElement {
 		return html`
 			<div id="chat-title-updater" class="chat-title-updater-container">
 				<div class="chat-titles-border-wrapper">
-					<div class="chat-titles-wrapper">
-						${this.chatTitles.map(
-							(chat, idx) => html`
-								<div
-									class="chat-title"
-									data-id=${idx}
-									@click=${() => this.onTitleClick(chat.title, idx)}
-								>
-									<p>${chat.title}</p>
-								</div>
-							`
-						)}
-					</div>
+					<div class="chat-titles-wrapper">${this.renderChatTitles()}</div>
 				</div>
 				<div class="chat-title-updater-bottom">
 					<div class="chat-title-updater-input-wrapper">
@@ -144,7 +172,7 @@ class ChatTitleUpdater extends LitElement {
 						<color-picker></color-picker>
 					</div>
 					<div class="chat-title-btn-container">
-						<save-button
+						<button-misc
 							label="Update Chat Name"
 							.handleClick=${() =>
 								changeChatTitle(
@@ -152,11 +180,11 @@ class ChatTitleUpdater extends LitElement {
 									this.currentInputValue,
 									this.selectedColor
 								)}
-						></save-button>
-						<save-button
+						></button-misc>
+						<button-misc
 							label="save"
-							.handleClick=${saveChatTitles}
-						></save-button>
+							.handleClick=${this.saveUpdatedChatTitles}
+						></button-misc>
 					</div>
 				</div>
 			</div>

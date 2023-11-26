@@ -8,7 +8,7 @@ class ColorPicker extends LitElement {
 
 	constructor() {
 		super();
-		this.selectedColor = '#000000';
+		this.selectedColor = '#e2e2e2';
 	}
 
 	handleColorChange(event) {
