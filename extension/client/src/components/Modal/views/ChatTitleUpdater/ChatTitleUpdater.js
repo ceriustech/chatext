@@ -73,6 +73,20 @@ class ChatTitleUpdater extends LitElement {
 		this.requestUpdate();
 	};
 
+	renderChatTitles() {
+		return this.chatTitles.map(
+			(chat, idx) => html`
+				<div
+					class="chat-title"
+					data-id=${idx}
+					@click=${() => this.onTitleClick(chat.title, idx)}
+				>
+					<p>${chat.title}</p>
+				</div>
+			`
+		);
+	}
+
 	static styles = css`
 		.chat-titles-border-wrapper {
 			border: 1px solid gray;
@@ -142,19 +156,7 @@ class ChatTitleUpdater extends LitElement {
 		return html`
 			<div id="chat-title-updater" class="chat-title-updater-container">
 				<div class="chat-titles-border-wrapper">
-					<div class="chat-titles-wrapper">
-						${this.chatTitles.map(
-							(chat, idx) => html`
-								<div
-									class="chat-title"
-									data-id=${idx}
-									@click=${() => this.onTitleClick(chat.title, idx)}
-								>
-									<p>${chat.title}</p>
-								</div>
-							`
-						)}
-					</div>
+					<div class="chat-titles-wrapper">${this.renderChatTitles()}</div>
 				</div>
 				<div class="chat-title-updater-bottom">
 					<div class="chat-title-updater-input-wrapper">

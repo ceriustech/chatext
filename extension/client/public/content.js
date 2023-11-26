@@ -29,25 +29,39 @@
 	}
 
 	function updateChatTitlesFromLocalStorage() {
+		// This line retrieves the 'chatTitles' array from localStorage.
+		// JSON.parse is used to convert the string back into an array.
+		// If there's nothing in localStorage, an empty array is used as a default.
 		const storedChatTitles =
 			JSON.parse(localStorage.getItem('chatTitles')) || [];
 
+		// This forEach loop iterates over each item in the storedChatTitles array.
 		storedChatTitles.forEach((storedChat, idx) => {
+			// Here, all elements with the class '.relative.grow.overflow-hidden.whitespace-nowrap' are selected.
+			// This creates a NodeList, which is similar to an array, of these elements.
 			const chatElements = document.querySelectorAll(
 				'.relative.grow.overflow-hidden.whitespace-nowrap'
 			);
 
+			// The if condition checks two things:
+			// 1. If the element at the current index exists (to prevent errors if the index is out of bounds).
+			// 2. If the text content of the current element does not already match the stored title.
+			// The trim() method removes any leading/trailing whitespace from the text.
 			if (
 				chatElements[idx] &&
 				chatElements[idx].textContent.trim() !== storedChat.title
 			) {
+				// If the conditions are true, the text content of the element is updated to the stored title.
 				chatElements[idx].textContent = storedChat.title;
+
+				// This logs the updated text content to the console for debugging.
 				console.log(
 					'🚀 ~ file: content.js:44 ~ storedChatTitles.forEach ~ chatElements:',
 					chatElements[idx].textContent
 				);
 
-				// Optionally update the color if stored
+				// This conditional checks if a color property exists on the storedChat object.
+				// If it does, it sets the text color of the current element to that color.
 				if (storedChat.color) {
 					chatElements[idx].style.color = storedChat.color;
 				}

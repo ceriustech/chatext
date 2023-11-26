@@ -10,8 +10,8 @@ const tabs = [
 		component: 'file-uploader-view',
 	},
 	{
-		id: 'rename-chat-view',
-		label: 'Rename Chats',
+		id: 'download-chats-view',
+		label: 'Download Chats',
 		component: 'chat-title-updater-view',
 	},
 ];
