@@ -27,7 +27,7 @@ class PopupContainer extends LitElement {
 				header: 'ChatEXT',
 				subHeader: 'Upload files to ChatGPT',
 				description: 'Click here for more info',
-				tooltip: 'Click the button or icon to learn more',
+				tooltip: 'Click the link or icon to learn more',
 				chatGptUrl: {
 					text: 'Go to ChatGPT',
 					url: 'https://chat.openai.com/',
