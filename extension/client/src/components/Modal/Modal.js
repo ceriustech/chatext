@@ -1,7 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 import './views/FileUploader';
-import './views/ChatTitleUpdater';
 
 const tabs = [
 	{
@@ -9,11 +8,11 @@ const tabs = [
 		label: 'Upload Files',
 		component: 'file-uploader-view',
 	},
-	{
-		id: 'download-chats-view',
-		label: 'Download Chats',
-		component: 'chat-title-updater-view',
-	},
+	// {
+	// 	id: 'download-chats-view',
+	// 	label: 'Download Chats',
+	// 	component: 'chat-title-updater-view',
+	// },
 ];
 
 class Modal extends LitElement {

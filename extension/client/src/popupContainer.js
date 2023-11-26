@@ -8,7 +8,11 @@ class PopupContainer extends LitElement {
 			padding: 2rem;
 			text-align: center;
 		}
-		/*...all your other CSS styles...*/
+
+		.header-container a {
+			text-decoration: none;
+			font-weight: 600;
+		}
 	`;
 
 	constructor() {
@@ -19,6 +23,10 @@ class PopupContainer extends LitElement {
 				subHeader: 'Upload files to ChatGPT',
 				description: 'Click here for more info',
 				tooltip: 'Click the button or icon to learn more',
+				chatGptUrl: {
+					text: 'Go to ChatGPT',
+					url: 'https://chat.openai.com/',
+				},
 			},
 		};
 		this.docsHint = '';
@@ -34,6 +42,9 @@ class PopupContainer extends LitElement {
       <div class="header-container">
         <h1>${this.popupInfo.docText.header}</h1>
         <h2>${this.popupInfo.docText.subHeader}</h2>
+				<a href="${this.popupInfo.docText.chatGptUrl.url}" target="_blank">
+					<p>${this.popupInfo.docText.chatGptUrl.text}</p>
+				</a>
       </div>
       <a href="https://chatext.app/" target="_blank">
         <div class="button">

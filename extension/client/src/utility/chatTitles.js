@@ -2,7 +2,7 @@ export function generateChatId() {
 	return `chat-id-${Math.random().toString(36).substr(2, 9)}`;
 }
 
-export function getChatTitles() {
+export function getChats() {
 	const chatTitles = Array.from(
 		document.querySelectorAll(
 			'.relative.grow.overflow-hidden.whitespace-nowrap'
@@ -14,15 +14,4 @@ export function getChatTitles() {
 	});
 
 	return chatTitles;
-}
-
-export function changeChatTitle(selectedChatId, newTitle, color) {
-	const chatTitles = getChatTitles();
-
-	chatTitles.forEach((chatTitle, idx) => {
-		if (idx === selectedChatId) {
-			chatTitle.textContent = newTitle;
-			chatTitle.style.color = color || '#fff';
-		}
-	});
 }
