@@ -4,9 +4,11 @@ import submitFiles from '../../../utility/submitFiles';
 class SubmitFile extends LitElement {
 	static styles = css`
 		.submit-file-btn {
-			background-color: #fff;
+			background-color: #7e1e89;
 			border: 1px solid #6c6f72;
 			border-radius: 4px;
+			color: #fff;
+			cursor: pointer;
 			padding: 5px 16px;
 			text-align: center;
 			text-decoration: none;
@@ -14,12 +16,6 @@ class SubmitFile extends LitElement {
 			font-size: 12px;
 			font-weight: 600;
 			margin: 10px 2px;
-			cursor: pointer;
-			color: #000;
-		}
-
-		.submit-file-btn:hover {
-			border: 1px solid #7e1e89;
 		}
 
 		p {

@@ -1,13 +1,19 @@
 import { LitElement, html, css } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
-import '../../../Image/FileUploaderIcon';
 import '../../../Buttons/SubmitFile';
 import '../../../Buttons/RemoveFileIcon';
 import '../../../FileIcon';
+import '../../../Image/FileUploaderIcon';
 import '../../../Image/TextIcons/CodeIcon';
+import '../../../Image/TextIcons/DocumentIcon';
+import '../../../Image/TextIcons/PdfDocumentIcon';
+import '../../../Image/TextIcons/SpreadsheetIcon';
+import '../../../Image/TextIcons/TextDocumentIcon';
+import '../../../Image/TextIcons/UnknownDocumentIcon';
 import getEventHandler from '../../../../utility/getEventHandler';
 import { globalStore } from '../../../../state/globalStore';
 import { eventEmitter } from '../../../../state/eventEmitter';
+import { DOC_TYPES_MAP } from '../../../../docTypes';
 
 class FileUploader extends LitElement {
 	static properties = {
@@ -15,12 +21,14 @@ class FileUploader extends LitElement {
 		uploadedFiles: { type: Array },
 		showFileName: { type: Boolean },
 		currentFileName: { type: String },
+		icon: { type: Object },
 	};
 
 	constructor() {
 		super();
 		this.isOpen = false;
 		this.uploadedFiles = [];
+		this.icon = null;
 		eventEmitter.on('fileAdded', this.handleFileChangeEvent);
 		eventEmitter.on('fileRemoved', this.handleFileChangeEvent);
 		eventEmitter.on('fileRemoved', this.setShowFileName);
@@ -46,6 +54,7 @@ class FileUploader extends LitElement {
 	handleMouseEnter(fileName) {
 		this.setShowFileName(true);
 		this.currentFileName = fileName;
+		this.icon = this.getIconForExtension(this.getFileExtension(fileName));
 	}
 
 	handleMouseLeave() {
@@ -53,33 +62,76 @@ class FileUploader extends LitElement {
 		this.currentFileName = '';
 	}
 
-	renderUploadedFiles(files) {
-		return files.map(
-			(file, idx) =>
-				html`
-					<div
-						class="file-upload-icon-wrapper"
-						@mouseenter=${() => this.handleMouseEnter(file.name)}
-						@mouseleave=${this.handleMouseLeave}
-					>
-						<div
-							class="file-icon-remove-btn"
-							@click=${() => {
-								globalStore.removeFile(file.name);
-								this.setShowFileName(false, true);
-							}}
-						>
-							<remove-file-icon></remove-file-icon>
-						</div>
+	getIconForExtension(extension) {
+		extension = extension.toLowerCase();
 
-						<file-icon
-							.id=${file.name}
-							.fileName=${file.name}
-							.fileExtension=${this.getFileExtension(file.name)}
-						></file-icon>
+		// Check if the extension is in devLangDocTypes
+		for (const key in DOC_TYPES_MAP.devLangDocTypes) {
+			if (DOC_TYPES_MAP.devLangDocTypes[key] === extension) {
+				return html`<code-icon></code-icon>`;
+			}
+		}
+
+		// Check if the extension is in docTypes
+		for (const key in DOC_TYPES_MAP.docTypes) {
+			if (DOC_TYPES_MAP.docTypes[key] === extension) {
+				if (extension === 'pdf') {
+					return html`<pdf-document-icon></pdf-document-icon>`;
+				}
+
+				if (extension === 'xlsx' || extension === 'csv') {
+					return html`<spreadsheet-icon></spreadsheet-icon>`;
+				}
+
+				if (extension === 'txt') {
+					return html`<text-document-icon></text-document-icon>`;
+				}
+
+				if (extension === 'doc' || extension === 'docx') {
+					return html`<document-icon></document-icon>`;
+				}
+			}
+		}
+
+		// Check if the extension is in imageDotTypes
+		// This logic is not needed because we are not allowing image uploads at the moment
+		// but will be useful in the future
+		// for (const key in DOC_TYPES_MAP.imageDotTypes) {
+		// 	if (DOC_TYPES_MAP.imageDotTypes[key] === extension) {
+		// 		return html`<image-icon></image-icon>`;
+		// 	}
+		// }
+
+		// Handle any other cases here, or return a default icon
+		return html`<unknown-document-icon></unknown-document-icon>`;
+	}
+
+	renderUploadedFiles(files) {
+		return files.map((file) => {
+			return html`
+				<div
+					class="file-upload-icon-wrapper"
+					@mouseenter=${() => this.handleMouseEnter(file.name)}
+					@mouseleave=${this.handleMouseLeave}
+				>
+					<div
+						class="file-icon-remove-btn"
+						@click=${() => {
+							globalStore.removeFile(file.name);
+							this.setShowFileName(false, true);
+						}}
+					>
+						<remove-file-icon></remove-file-icon>
 					</div>
-				`
-		);
+
+					<file-icon
+						.id=${file.name}
+						.fileName=${file.name}
+						.fileExtension=${this.getFileExtension(file.name)}
+					></file-icon>
+				</div>
+			`;
+		});
 	}
 
 	getFileExtension(fileName) {
@@ -194,7 +246,7 @@ class FileUploader extends LitElement {
 				<div class="file-upload-bottom">
 					<div class="file-upload_name-info ${classMap(infoClass)}">
 						${this.showFileName &&
-						html`<code-icon></code-icon>
+						html`${this.icon}
 							<p>${this.currentFileName}</p>`}
 					</div>
 					<submit-file-button

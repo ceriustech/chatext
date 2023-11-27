@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit';
 
-class SpreadSheettIcon extends LitElement {
+class UnkownDocumentIcon extends LitElement {
 	static styles = css`
 		.logo-container {
 			box-shadow: rgba(0, 0, 0, 0.75) 0px 0px 3px 0px;
@@ -21,7 +21,7 @@ class SpreadSheettIcon extends LitElement {
 					height="28px"
 				>
 					<g
-						fill="#6c6f72"
+						fill="#000000"
 						fill-rule="nonzero"
 						stroke="none"
 						stroke-width="1"
@@ -38,7 +38,7 @@ class SpreadSheettIcon extends LitElement {
 					>
 						<g transform="scale(5.12,5.12)">
 							<path
-								d="M14,4c-5.514,0 -10,4.486 -10,10v22c0,5.514 4.486,10 10,10h22c5.514,0 10,-4.486 10,-10v-22c0,-5.514 -4.486,-10 -10,-10zM12,15h26c0.553,0 1,0.447 1,1v18c0,0.553 -0.447,1 -1,1h-26c-0.553,0 -1,-0.447 -1,-1v-18c0,-0.553 0.447,-1 1,-1zM22,17v4h15v-4zM13,23v4h7v-4zM22,23v4h15v-4zM13,29v4h7v-4zM22,29v4h15v-4z"
+								d="M7,2v46h36v-33.40625l-0.28125,-0.3125l-12,-12l-0.3125,-0.28125zM9,4h20v12h12v30h-32zM31,5.4375l8.5625,8.5625h-8.5625z"
 							></path>
 						</g>
 					</g>
@@ -48,6 +48,6 @@ class SpreadSheettIcon extends LitElement {
 	}
 }
 
-customElements.define('spreadsheet-icon', SpreadSheettIcon);
+customElements.define('unknown-document-icon', UnkownDocumentIcon);
 
-export default SpreadSheettIcon;
+export default UnkownDocumentIcon;
