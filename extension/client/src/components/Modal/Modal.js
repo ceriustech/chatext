@@ -90,17 +90,28 @@ class Modal extends LitElement {
 			gap: 7px;
 		}
 
-		.close {
-			color: #aaa;
-			font-size: 28px;
+		.close-btn-wrapper {
+			border-radius: 5px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 12px;
 			position: absolute;
-			top: 0;
+			top: 13px;
 			right: 1rem;
+			background-color: #ecdfed;
+			padding: 5px;
+			height: 18px;
+		}
+
+		.close {
+			color: #000;
+			font-size: 1.5rem;
 		}
 
 		.close:hover,
 		.close:focus {
-			color: #ab68ff;
+			color: #7e1e89;
 			text-decoration: none;
 			cursor: pointer;
 		}
@@ -139,7 +150,9 @@ class Modal extends LitElement {
 						</div>
 						<h1 class="app-tittle">ChatExt</h1>
 					</div>
-					<span class="close" @click=${this.closeModal}>&times;</span>
+					<div class="close-btn-wrapper">
+						<span class="close" @click=${this.closeModal}>&times;</span>
+					</div>
 					<div class="tab-view-container">
 						<div class="tab-container">
 							${tabs.map(
