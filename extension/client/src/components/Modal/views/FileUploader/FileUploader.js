@@ -72,10 +72,7 @@ class FileUploader extends LitElement {
 		for (const key in DOC_TYPES_MAP.devLangDocTypes) {
 			if (DOC_TYPES_MAP.devLangDocTypes[key] === extension) {
 				this.iconDescriptonBorder = FILE_ICON_DESCRIPTION.type.dev.color;
-				console.log(
-					'🚀 ~ file: FileUploader.js:75 ~ FileUploader ~ getIconForExtension ~ iconDescriptonBorder:',
-					this.iconDescriptonBorder
-				);
+
 				return html`<code-icon></code-icon>`;
 			}
 		}
@@ -165,11 +162,6 @@ class FileUploader extends LitElement {
 
 	fileUploadNameInfoStyle(color) {
 		if (this.showFileName && this.uploadedFiles.length > 0) {
-			console.log(
-				'🚀 ~ file: FileUploader.js:172 ~ FileUploader ~ fileUploadNameInfoStyle ~ color:',
-				color
-			);
-
 			return {
 				border: `1px solid ${color}`,
 				borderRadius: '10px',
