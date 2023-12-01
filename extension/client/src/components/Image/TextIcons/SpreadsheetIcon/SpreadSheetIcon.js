@@ -21,7 +21,7 @@ class SpreadSheettIcon extends LitElement {
 					height="28px"
 				>
 					<g
-						fill="#6c6f72"
+						fill="#158348"
 						fill-rule="nonzero"
 						stroke="none"
 						stroke-width="1"

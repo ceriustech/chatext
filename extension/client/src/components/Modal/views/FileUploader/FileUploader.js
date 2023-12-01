@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { classMap } from 'lit/directives/class-map.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import '../../../Buttons/SubmitFile';
 import '../../../Buttons/RemoveFileIcon';
 import '../../../FileIcon';
@@ -14,6 +14,7 @@ import getEventHandler from '../../../../utility/getEventHandler';
 import { globalStore } from '../../../../state/globalStore';
 import { eventEmitter } from '../../../../state/eventEmitter';
 import { DOC_TYPES_MAP } from '../../../../docTypes';
+import { FILE_ICON_DESCRIPTION } from '../../../../utility/utils';
 
 class FileUploader extends LitElement {
 	static properties = {
@@ -22,6 +23,7 @@ class FileUploader extends LitElement {
 		showFileName: { type: Boolean },
 		currentFileName: { type: String },
 		icon: { type: Object },
+		iconDescriptonBorder: { type: String },
 	};
 
 	constructor() {
@@ -29,6 +31,7 @@ class FileUploader extends LitElement {
 		this.isOpen = false;
 		this.uploadedFiles = [];
 		this.icon = null;
+		this.iconDescriptonBorder = '#7e1e89';
 		eventEmitter.on('fileAdded', this.handleFileChangeEvent);
 		eventEmitter.on('fileRemoved', this.handleFileChangeEvent);
 		eventEmitter.on('fileRemoved', this.setShowFileName);
@@ -68,6 +71,11 @@ class FileUploader extends LitElement {
 		// Check if the extension is in devLangDocTypes
 		for (const key in DOC_TYPES_MAP.devLangDocTypes) {
 			if (DOC_TYPES_MAP.devLangDocTypes[key] === extension) {
+				this.iconDescriptonBorder = FILE_ICON_DESCRIPTION.type.dev.color;
+				console.log(
+					'🚀 ~ file: FileUploader.js:75 ~ FileUploader ~ getIconForExtension ~ iconDescriptonBorder:',
+					this.iconDescriptonBorder
+				);
 				return html`<code-icon></code-icon>`;
 			}
 		}
@@ -76,18 +84,28 @@ class FileUploader extends LitElement {
 		for (const key in DOC_TYPES_MAP.docTypes) {
 			if (DOC_TYPES_MAP.docTypes[key] === extension) {
 				if (extension === 'pdf') {
+					this.iconDescriptonBorder =
+						FILE_ICON_DESCRIPTION.type.doc.fileTypes.pdf.color;
 					return html`<pdf-document-icon></pdf-document-icon>`;
 				}
 
 				if (extension === 'xlsx' || extension === 'csv') {
+					this.iconDescriptonBorder =
+						FILE_ICON_DESCRIPTION.type.doc.fileTypes.xlsx.color;
+
 					return html`<spreadsheet-icon></spreadsheet-icon>`;
 				}
 
 				if (extension === 'txt') {
+					this.iconDescriptonBorder =
+						FILE_ICON_DESCRIPTION.type.doc.fileTypes.txt.color;
+
 					return html`<text-document-icon></text-document-icon>`;
 				}
 
 				if (extension === 'doc' || extension === 'docx') {
+					this.iconDescriptonBorder =
+						FILE_ICON_DESCRIPTION.type.doc.fileTypes.doc.color;
 					return html`<document-icon></document-icon>`;
 				}
 			}
@@ -134,8 +152,35 @@ class FileUploader extends LitElement {
 		});
 	}
 
+	showFileIconDescription() {
+		if (this.showFileName && this.uploadedFiles.length > 0) {
+			return html`${this.icon}
+				<p>${this.currentFileName}</p>`;
+		}
+	}
+
 	getFileExtension(fileName) {
 		return fileName.split('.').pop();
+	}
+
+	fileUploadNameInfoStyle(color) {
+		if (this.showFileName && this.uploadedFiles.length > 0) {
+			console.log(
+				'🚀 ~ file: FileUploader.js:172 ~ FileUploader ~ fileUploadNameInfoStyle ~ color:',
+				color
+			);
+
+			return {
+				border: `1px solid ${color}`,
+				borderRadius: '10px',
+				padding: '8px 12px',
+				display: 'flex',
+				alignItems: 'center',
+				gap: '7px',
+			};
+		}
+
+		return {};
 	}
 
 	static styles = css`
@@ -174,7 +219,7 @@ class FileUploader extends LitElement {
 			flex-flow: wrap;
 			gap: 5px;
 			align-items: flex-start;
-			min-height: 65px;
+			min-height: 72px;
 			margin: 10px 0 25px;
 		}
 
@@ -206,10 +251,6 @@ class FileUploader extends LitElement {
 			gap: 7px;
 		}
 
-		.show-border {
-			border: 1px solid #7e1e89;
-		}
-
 		.file-upload_name-info p {
 			color: #6c6f72;
 			font-size: 1rem;
@@ -225,10 +266,6 @@ class FileUploader extends LitElement {
 	`;
 
 	render() {
-		const infoClass = {
-			'show-border': this.showFileName,
-		};
-
 		return html`
 			<div id="file-uploader" class="file-uploader-container">
 				<div
@@ -244,10 +281,13 @@ class FileUploader extends LitElement {
 					${this.renderUploadedFiles(this.uploadedFiles)}
 				</div>
 				<div class="file-upload-bottom">
-					<div class="file-upload_name-info ${classMap(infoClass)}">
-						${this.showFileName &&
-						html`${this.icon}
-							<p>${this.currentFileName}</p>`}
+					<div
+						class="file-upload_name-info"
+						style=${styleMap(
+							this.fileUploadNameInfoStyle(this.iconDescriptonBorder)
+						)}
+					>
+						${this.showFileIconDescription()}
 					</div>
 					<submit-file-button
 						class="submit-file-btn-container"

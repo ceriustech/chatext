@@ -16,6 +16,7 @@ async function submitFiles() {
 		}
 
 		const chunks = text.match(/[\s\S]{1,15000}/g);
+		console.log('🚀 ~ file: submitFiles.js:19 ~ submitFiles ~ chunks:', chunks);
 
 		for (const [index, chunk] of chunks.entries()) {
 			await submitConversation(chunk, index + 1, file.name);

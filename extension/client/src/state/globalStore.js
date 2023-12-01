@@ -24,6 +24,10 @@ class GlobalStore {
 		if (!isFileAlreadyAdded) {
 			this.uploadedFiles.push(file);
 			eventEmitter.emit('fileAdded', file);
+			console.log(
+				'🚀 ~ file: globalStore.js:26 ~ GlobalStore ~ addFile ~ uploadedFiles:',
+				this.uploadedFiles
+			);
 		}
 	}
 
