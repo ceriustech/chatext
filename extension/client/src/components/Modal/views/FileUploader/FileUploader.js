@@ -1,11 +1,20 @@
 import { LitElement, html, css } from 'lit';
-import { classMap } from 'lit/directives/class-map.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import '../../../Buttons/SubmitFile';
 import '../../../Buttons/RemoveFileIcon';
 import '../../../FileIcon';
+import '../../../Image/FileUploaderIcon';
+import '../../../Image/TextIcons/CodeIcon';
+import '../../../Image/TextIcons/DocumentIcon';
+import '../../../Image/TextIcons/PdfDocumentIcon';
+import '../../../Image/TextIcons/SpreadsheetIcon';
+import '../../../Image/TextIcons/TextDocumentIcon';
+import '../../../Image/TextIcons/UnknownDocumentIcon';
 import getEventHandler from '../../../../utility/getEventHandler';
 import { globalStore } from '../../../../state/globalStore';
 import { eventEmitter } from '../../../../state/eventEmitter';
+import { DOC_TYPES_MAP } from '../../../../docTypes';
+import { FILE_ICON_DESCRIPTION } from '../../../../utility/utils';
 
 class FileUploader extends LitElement {
 	static properties = {
@@ -13,12 +22,16 @@ class FileUploader extends LitElement {
 		uploadedFiles: { type: Array },
 		showFileName: { type: Boolean },
 		currentFileName: { type: String },
+		icon: { type: Object },
+		iconDescriptonBorder: { type: String },
 	};
 
 	constructor() {
 		super();
 		this.isOpen = false;
 		this.uploadedFiles = [];
+		this.icon = null;
+		this.iconDescriptonBorder = '#7e1e89';
 		eventEmitter.on('fileAdded', this.handleFileChangeEvent);
 		eventEmitter.on('fileRemoved', this.handleFileChangeEvent);
 		eventEmitter.on('fileRemoved', this.setShowFileName);
@@ -44,6 +57,7 @@ class FileUploader extends LitElement {
 	handleMouseEnter(fileName) {
 		this.setShowFileName(true);
 		this.currentFileName = fileName;
+		this.icon = this.getIconForExtension(this.getFileExtension(fileName));
 	}
 
 	handleMouseLeave() {
@@ -51,37 +65,122 @@ class FileUploader extends LitElement {
 		this.currentFileName = '';
 	}
 
-	renderUploadedFiles(files) {
-		return files.map(
-			(file, idx) =>
-				html`
-					<div
-						class="file-upload-icon-wrapper"
-						@mouseenter=${() => this.handleMouseEnter(file.name)}
-						@mouseleave=${this.handleMouseLeave}
-					>
-						<div
-							class="file-icon-remove-btn"
-							@click=${() => {
-								globalStore.removeFile(file.name);
-								this.setShowFileName(false, true);
-							}}
-						>
-							<remove-file-icon></remove-file-icon>
-						</div>
+	getIconForExtension(extension) {
+		extension = extension.toLowerCase();
 
-						<file-icon
-							.id=${file.name}
-							.fileName=${file.name}
-							.fileExtension=${this.getFileExtension(file.name)}
-						></file-icon>
+		// Check if the extension is in devLangDocTypes
+		for (const key in DOC_TYPES_MAP.devLangDocTypes) {
+			if (DOC_TYPES_MAP.devLangDocTypes[key] === extension) {
+				this.iconDescriptonBorder = FILE_ICON_DESCRIPTION.type.dev.color;
+				console.log(
+					'🚀 ~ file: FileUploader.js:75 ~ FileUploader ~ getIconForExtension ~ iconDescriptonBorder:',
+					this.iconDescriptonBorder
+				);
+				return html`<code-icon></code-icon>`;
+			}
+		}
+
+		// Check if the extension is in docTypes
+		for (const key in DOC_TYPES_MAP.docTypes) {
+			if (DOC_TYPES_MAP.docTypes[key] === extension) {
+				if (extension === 'pdf') {
+					this.iconDescriptonBorder =
+						FILE_ICON_DESCRIPTION.type.doc.fileTypes.pdf.color;
+					return html`<pdf-document-icon></pdf-document-icon>`;
+				}
+
+				if (extension === 'xlsx' || extension === 'csv') {
+					this.iconDescriptonBorder =
+						FILE_ICON_DESCRIPTION.type.doc.fileTypes.xlsx.color;
+
+					return html`<spreadsheet-icon></spreadsheet-icon>`;
+				}
+
+				if (extension === 'txt') {
+					this.iconDescriptonBorder =
+						FILE_ICON_DESCRIPTION.type.doc.fileTypes.txt.color;
+
+					return html`<text-document-icon></text-document-icon>`;
+				}
+
+				if (extension === 'doc' || extension === 'docx') {
+					this.iconDescriptonBorder =
+						FILE_ICON_DESCRIPTION.type.doc.fileTypes.doc.color;
+					return html`<document-icon></document-icon>`;
+				}
+			}
+		}
+
+		// Check if the extension is in imageDotTypes
+		// This logic is not needed because we are not allowing image uploads at the moment
+		// but will be useful in the future
+		// for (const key in DOC_TYPES_MAP.imageDotTypes) {
+		// 	if (DOC_TYPES_MAP.imageDotTypes[key] === extension) {
+		// 		return html`<image-icon></image-icon>`;
+		// 	}
+		// }
+
+		// Handle any other cases here, or return a default icon
+		return html`<unknown-document-icon></unknown-document-icon>`;
+	}
+
+	renderUploadedFiles(files) {
+		return files.map((file) => {
+			return html`
+				<div
+					class="file-upload-icon-wrapper"
+					@mouseenter=${() => this.handleMouseEnter(file.name)}
+					@mouseleave=${this.handleMouseLeave}
+				>
+					<div
+						class="file-icon-remove-btn"
+						@click=${() => {
+							globalStore.removeFile(file.name);
+							this.setShowFileName(false, true);
+						}}
+					>
+						<remove-file-icon></remove-file-icon>
 					</div>
-				`
-		);
+
+					<file-icon
+						.id=${file.name}
+						.fileName=${file.name}
+						.fileExtension=${this.getFileExtension(file.name)}
+					></file-icon>
+				</div>
+			`;
+		});
+	}
+
+	showFileIconDescription() {
+		if (this.showFileName && this.uploadedFiles.length > 0) {
+			return html`${this.icon}
+				<p>${this.currentFileName}</p>`;
+		}
 	}
 
 	getFileExtension(fileName) {
 		return fileName.split('.').pop();
+	}
+
+	fileUploadNameInfoStyle(color) {
+		if (this.showFileName && this.uploadedFiles.length > 0) {
+			console.log(
+				'🚀 ~ file: FileUploader.js:172 ~ FileUploader ~ fileUploadNameInfoStyle ~ color:',
+				color
+			);
+
+			return {
+				border: `1px solid ${color}`,
+				borderRadius: '10px',
+				padding: '8px 12px',
+				display: 'flex',
+				alignItems: 'center',
+				gap: '7px',
+			};
+		}
+
+		return {};
 	}
 
 	static styles = css`
@@ -117,13 +216,15 @@ class FileUploader extends LitElement {
 		.file-upload-icon-container {
 			display: flex;
 			flex-direction: row;
+			flex-flow: wrap;
 			gap: 5px;
 			align-items: flex-start;
-			height: 65px;
+			min-height: 72px;
 			margin: 10px 0 25px;
 		}
 
 		.file-upload-icon-wrapper {
+			margin-bottom: 7px;
 			position: relative;
 		}
 
@@ -136,18 +237,18 @@ class FileUploader extends LitElement {
 
 		.file-upload-bottom {
 			display: flex;
-			align-items: baseline;
+			align-items: center;
 			font-size: 12px;
 			justify-content: space-between;
+			height: 50px;
 		}
 
 		.file-upload_name-info {
 			border-radius: 10px;
 			padding: 8px 12px;
-		}
-
-		.show-border {
-			border: 1px solid #7e1e89;
+			display: flex;
+			align-items: center;
+			gap: 7px;
 		}
 
 		.file-upload_name-info p {
@@ -165,10 +266,6 @@ class FileUploader extends LitElement {
 	`;
 
 	render() {
-		const infoClass = {
-			'show-border': this.showFileName,
-		};
-
 		return html`
 			<div id="file-uploader" class="file-uploader-container">
 				<div
@@ -176,55 +273,7 @@ class FileUploader extends LitElement {
 					@click=${getEventHandler('click')}
 					@drop=${getEventHandler('drop')}
 				>
-					<div class="upload-icon">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							xmlns:xlink="http://www.w3.org/1999/xlink"
-							viewBox="0,0,256,256"
-							width="64px"
-							height="64px"
-							fill-rule="nonzero"
-							fill="none"
-						>
-							<g
-								fill="none"
-								fill-rule="nonzero"
-								stroke="none"
-								stroke-width="1"
-								stroke-linecap="butt"
-								stroke-linejoin="miter"
-								stroke-miterlimit="10"
-								stroke-dasharray=""
-								stroke-dashoffset="0"
-								font-family="none"
-								font-weight="none"
-								font-size="none"
-								text-anchor="none"
-								style="mix-blend-mode: normal"
-							>
-								<g transform="scale(0.5,0.5)">
-									<path
-										d="M476,112h-142l26,32h-48v160h-112v-160h-48l26,-32h-142c-5.30482,-0.00159 -10.39282,2.10503 -14.14389,5.85611c-3.75107,3.75107 -5.8577,8.83908 -5.85611,14.14389v252h480v-252c0.00159,-5.30482 -2.10503,-10.39282 -5.85611,-14.14389c-3.75107,-3.75107 -8.83908,-5.8577 -14.14389,-5.85611zM312,352h-112v-24h112z"
-										fill-opacity="0.25098"
-										fill="#7e1e89"
-									></path>
-									<path
-										d="M320,472h-128l16,-40h96z"
-										fill-opacity="0.25098"
-										fill="#7e1e89"
-									></path>
-									<g fill="#7e1e89">
-										<path
-											d="M476,104h-138.19l-75.6,-93.04c-1.51786,-1.87249 -3.79958,-2.96012 -6.21,-2.96012c-2.41042,0 -4.69214,1.08763 -6.21,2.96012l-75.6,93.04h-138.19c-15.45689,0.01708 -27.98292,12.54311 -28,28v280c0.01708,15.45689 12.54311,27.98292 28,28h160.18l-9.6,24h-42.58c-4.41828,0 -8,3.58172 -8,8v24c0,4.41828 3.58172,8 8,8h224c4.41828,0 8,-3.58172 8,-8v-24c0,-4.41828 -3.58172,-8 -8,-8h-42.58l-9.6,-24h160.18c15.45689,-0.01708 27.98292,-12.54311 28,-28v-280c-0.01708,-15.45689 -12.54311,-27.98292 -28,-28zM184.17,117.09h0.01l71.82,-88.4l71.82,88.4h0.01l15.36,18.91h-31.19c-4.41828,0 -8,3.58172 -8,8v152h-96v-152c0,-4.41828 -3.58172,-8 -8,-8h-31.19zM360,480v8h-208v-8zM203.82,464l9.6,-24h85.16l9.6,24zM488,412c-0.00551,6.62513 -5.37487,11.99449 -12,12h-440c-6.62513,-0.00551 -11.99449,-5.37487 -12,-12v-20h464zM488,376h-464v-244c0.00551,-6.62513 5.37487,-11.99449 12,-12h125.19l-15.4,18.96c-1.94329,2.39547 -2.33627,5.69478 -1.01002,8.47968c1.32625,2.78491 4.13544,4.55925 7.22002,4.56032h40v152c0,4.41828 3.58172,8 8,8h112c4.41828,0 8,-3.58172 8,-8v-152h40c3.08458,-0.00106 5.89377,-1.77541 7.22002,-4.56032c1.32625,-2.78491 0.93327,-6.08421 -1.01002,-8.47968l-15.4,-18.96h125.19c6.62513,0.00551 11.99449,5.37487 12,12z"
-										></path>
-										<path
-											d="M200,360h112c4.41828,0 8,-3.58172 8,-8v-24c0,-4.41828 -3.58172,-8 -8,-8h-112c-4.41828,0 -8,3.58172 -8,8v24c0,4.41828 3.58172,8 8,8zM208,336h96v8h-96z"
-										></path>
-									</g>
-								</g>
-							</g>
-						</svg>
-					</div>
+					<file-uploader-icon></file-uploader-icon>
 					<h2 class="file-upload-info-h">Drag file here</h2>
 					<p class="file-upload-info-p">or, click to browse</p>
 				</div>
@@ -232,8 +281,13 @@ class FileUploader extends LitElement {
 					${this.renderUploadedFiles(this.uploadedFiles)}
 				</div>
 				<div class="file-upload-bottom">
-					<div class="file-upload_name-info ${classMap(infoClass)}">
-						${this.showFileName && html`<p>${this.currentFileName}</p>`}
+					<div
+						class="file-upload_name-info"
+						style=${styleMap(
+							this.fileUploadNameInfoStyle(this.iconDescriptonBorder)
+						)}
+					>
+						${this.showFileIconDescription()}
 					</div>
 					<submit-file-button
 						class="submit-file-btn-container"

@@ -1,4 +1,5 @@
 import { eventEmitter } from './eventEmitter';
+import { MAX_FILES } from '../utility/utils';
 
 class GlobalStore {
 	constructor() {
@@ -8,7 +9,7 @@ class GlobalStore {
 	addFile(file) {
 		if (!file) return;
 		// Limit the number of files to 6
-		if (this.uploadedFiles.length >= 6) {
+		if (this.uploadedFiles.length >= MAX_FILES) {
 			eventEmitter.emitEvent('fileLimitReached', {
 				message: 'Maximum of 6 files can be uploaded.',
 			});
@@ -23,6 +24,10 @@ class GlobalStore {
 		if (!isFileAlreadyAdded) {
 			this.uploadedFiles.push(file);
 			eventEmitter.emit('fileAdded', file);
+			console.log(
+				'🚀 ~ file: globalStore.js:26 ~ GlobalStore ~ addFile ~ uploadedFiles:',
+				this.uploadedFiles
+			);
 		}
 	}
 

@@ -17,13 +17,11 @@ async function submitConversation(text, part, filename) {
 
 		textarea.dispatchEvent(inputEvent);
 
-		let submitButton;
-		const target = document.querySelector('[data-testid="send-button"]');
+		const submitButton = document.querySelector('[data-testid="send-button"]');
 
-		if (target) {
-			submitButton = target;
+		if (submitButton) {
+			submitButton.click();
 		}
-		submitButton.click();
 	} catch (error) {
 		console.error('Error in submitConversation:', error);
 	}

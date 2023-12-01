@@ -1,7 +1,6 @@
 (function () {
 	const targetElementSelector = '#prompt-textarea';
-	const chatGPTImageElementSelector =
-		'.absolute.left-4.bottom-2.gizmo\\:md\\:bottom-3.md\\:left-4.gizmo\\:left-2.gizmo\\:md\\:left-4.md\\:bottom-3\\.5';
+	const chatGPTImageElementSelector = "[aria-label='Attach files']";
 	let targetElement;
 	let lastParentNode;
 	let imageElement;
