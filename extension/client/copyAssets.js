@@ -11,6 +11,14 @@ const __dirname = path.dirname(__filename);
 // Define the source and destination directories
 const srcDir = path.join(__dirname, 'src', 'assets'); // The source directory path
 const distDir = path.join(__dirname, 'dist', 'assets'); // The destination directory path
+const pdfWorkerSrcPath = path.join(
+	__dirname,
+	'node_modules',
+	'pdfjs-dist',
+	'build',
+	'pdf.worker.js'
+);
+const pdfWorkerDistPath = path.join(__dirname, 'dist', 'pdf.worker.js'); // Destination for pdf.worker.js
 
 // Define a recursive function to copy files from source to destination
 function copyFiles(srcPath, distPath) {
@@ -30,5 +38,9 @@ function copyFiles(srcPath, distPath) {
 	});
 }
 
-// Call the copyFiles function to start copying files from source to destination
+// Copy assets from src to dist
 copyFiles(srcDir, distDir);
+
+// Copy pdf.worker.js from node_modules to dist
+fs.copyFileSync(pdfWorkerSrcPath, pdfWorkerDistPath);
+console.log('pdf.worker.js copied to dist directory');
