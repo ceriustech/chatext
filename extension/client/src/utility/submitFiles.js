@@ -8,6 +8,7 @@ async function submitFiles() {
 	for (const file of globalStore.uploadedFiles) {
 		const text = await handleFileUpload(file).catch((err) => {
 			console.error('Error while uploading file:', err);
+			return null;
 		});
 
 		if (!text) {
@@ -22,9 +23,8 @@ async function submitFiles() {
 			await submitConversation(chunk, index + 1, file.name);
 			await waitForChatGPTReady();
 		}
+		globalStore.removeFile(file.name);
 	}
-
-	globalStore.removeAllFiles();
 
 	this.requestUpdate();
 }
