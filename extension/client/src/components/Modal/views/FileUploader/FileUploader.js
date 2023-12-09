@@ -41,7 +41,7 @@ class FileUploader extends LitElement {
 		if (forceHide) {
 			this.showFileName = false;
 		} else {
-			this.showFileName = value || false;
+			this.showFileName = value && this.uploadedFiles.length > 0;
 		}
 	};
 
@@ -55,7 +55,7 @@ class FileUploader extends LitElement {
 	};
 
 	handleMouseEnter(fileName) {
-		this.setShowFileName(true);
+		this.setShowFileName(this.uploadedFiles.length > 0);
 		this.currentFileName = fileName;
 		this.icon = this.getIconForExtension(this.getFileExtension(fileName));
 	}
