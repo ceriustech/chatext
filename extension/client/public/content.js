@@ -81,16 +81,6 @@
 							</g>
 						</svg>`;
 						downloadButton.download = downloadFileName;
-						downloadButton.style.display = 'flex';
-						downloadButton.style.justifyContent = 'center';
-						downloadButton.style.alignItems = 'center';
-						downloadButton.style.borderRadius = '25px';
-						downloadButton.style.padding = '5px';
-						downloadButton.style.width = '25px';
-						downloadButton.style.height = '25px';
-						downloadButton.style.backgroundColor = '#D1D5DB';
-						downloadButton.style.marginLeft = '10px';
-
 						const container = document.createElement('div');
 						container.classList.add('chatext-download-btn-container');
 
@@ -104,6 +94,28 @@
 						childElement.parentNode.insertBefore(container, childElement);
 						container.appendChild(childElement);
 						container.appendChild(downloadButton);
+
+						// Add CSS for the download button hover effect
+						const style = document.createElement('style');
+						style.textContent = `
+									.chatext-download-btn {
+										cursor: pointer;
+										display: flex;
+										justify-content: center;
+										align-items: center;
+										border-radius: 25px;
+										padding: 5px;
+										width: 25px;
+										height: 25px;
+										background-color: #D1D5DB;
+										margin-left: 10px;
+									}
+
+								 .chatext-download-btn:hover {
+										 background-color: #E5E7EB;
+								 }
+						 `;
+						document.head.appendChild(style);
 					}
 				});
 			});
