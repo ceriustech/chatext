@@ -20,6 +20,7 @@ class OpenModal extends LitElement {
 			background-repeat: no-repeat;
 			border-radius: 25px;
 			color: #7e1e89;
+			cursor: pointer;
 			font-size: 16px;
 			padding: 1px 5px;
 			border: none;
@@ -27,11 +28,6 @@ class OpenModal extends LitElement {
 			width: 25px;
 			height: 25px;
 			transition: transform 0.3s ease-in-out;
-		}
-
-		.open-modal-btn:hover {
-			cursor: pointer;
-			transform: scale(1.2);
 		}
 
 		.btn-plus-icon {
