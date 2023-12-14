@@ -94,28 +94,6 @@
 						childElement.parentNode.insertBefore(container, childElement);
 						container.appendChild(childElement);
 						container.appendChild(downloadButton);
-
-						// Add CSS for the download button hover effect
-						const style = document.createElement('style');
-						style.textContent = `
-									.chatext-download-btn {
-										cursor: pointer;
-										display: flex;
-										justify-content: center;
-										align-items: center;
-										border-radius: 25px;
-										padding: 5px;
-										width: 25px;
-										height: 25px;
-										background-color: #D1D5DB;
-										margin-left: 10px;
-									}
-
-								 .chatext-download-btn:hover {
-										 background-color: #E5E7EB;
-								 }
-						 `;
-						document.head.appendChild(style);
 					}
 				});
 			});
@@ -155,6 +133,25 @@
 							);
 							lastParentNode.style.flexDirection = 'row';
 							lastParentNode.style.position = 'relative';
+
+							// Add CSS for the download button hover effect
+							const style = document.createElement('style');
+							style.textContent = `
+									.chatext-download-btn {
+										cursor: pointer;
+										display: flex;
+										justify-content: center;
+										align-items: center;
+										border-radius: 25px;
+										padding: 5px;
+										width: 25px;
+										height: 25px;
+										background-color: #D1D5DB;
+										margin-left: 10px;
+										transition: transform 0.3s ease-in-out;
+									}
+						 `;
+							document.head.appendChild(style);
 						}, 100);
 					};
 				}
