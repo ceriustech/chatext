@@ -17,11 +17,21 @@ async function submitConversation(text, part, filename) {
 
 		textarea.dispatchEvent(inputEvent);
 
-		const submitButton = document.querySelector('[data-testid="send-button"]');
-
-		if (submitButton) {
-			submitButton.click();
-		}
+		// Wait for a short period before clicking the submit button
+		setTimeout(() => {
+			const submitButton = document.querySelector(
+				'[data-testid="send-button"]'
+			);
+			if (submitButton) {
+				// Dispatch a click event
+				const clickEvent = new MouseEvent('click', {
+					bubbles: true,
+					cancelable: true,
+					view: window,
+				});
+				submitButton.dispatchEvent(clickEvent);
+			}
+		}, 500);
 	} catch (error) {
 		console.error('Error in submitConversation:', error);
 	}
