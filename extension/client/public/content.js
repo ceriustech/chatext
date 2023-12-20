@@ -43,18 +43,6 @@
 		if (markdownElements.length > 0) {
 			markdownFound = true;
 
-			const DOC_TYPES_MAP = {
-				// ... your DOC_TYPES_MAP object ...
-			};
-
-			const MIME_TYPES_MAP = {
-				js: 'application/javascript',
-				py: 'application/x-python',
-				html: 'text/html',
-				css: 'text/css',
-				// ... add other MIME types as needed ...
-			};
-
 			markdownElements.forEach((markdownElement) => {
 				const childElements = markdownElement.querySelectorAll(':scope > pre');
 
