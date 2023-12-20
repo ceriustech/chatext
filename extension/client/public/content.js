@@ -1,9 +1,12 @@
 (function () {
 	const targetElementSelector = '#prompt-textarea';
-	const chatGPTImageElementSelector = "[aria-label='Attach files']";
+	const chatGPTFIleUploadButton = "[aria-label='Attach files']";
+	const firstChildOfPromptTextarea = targetElementSelector
+		? targetElementSelector.firstElementChild
+		: null;
 	let targetElement;
 	let lastParentNode;
-	let imageElement;
+	let fileUploadElement;
 	const mediaQuery = window.matchMedia('(max-width: 768px)');
 	let eventListenerAdded = false;
 	let eventListenerCounter = 0;
@@ -11,20 +14,24 @@
 	let pollingAttempts = 0;
 	const maxPollingAttempts = 10;
 
-	function handleMediaQueryChange(mediaQuery) {
+	function getChatGPTFIleUploadButton(chatGPTFIleUploadButton) {
+		return document.querySelector(chatGPTFIleUploadButton);
+	}
+
+	function handleMediaQueryChange(mediaQuery, chatGPTFIleUploadButton) {
 		targetElement = document.querySelector(targetElementSelector);
 
-		if (mediaQuery.matches) {
-			targetElement.style.paddingLeft = '48px';
+		if (mediaQuery.matches && chatGPTFIleUploadButton) {
+			targetElement.style.paddingLeft = '76px';
 		} else {
 			targetElement.style.paddingLeft = '48px';
 		}
 	}
 
-	function handleImageElement(selector) {
-		imageElement = document.querySelector(selector);
-		if (imageElement) {
-			imageElement.style.display = 'none';
+	function handleChatGPTFileUploadElement(selector) {
+		fileUploadElement = document.querySelector(selector);
+		if (fileUploadElement) {
+			fileUploadElement.style.marginLeft = '25px';
 		} else {
 			console.log('UNABLE TO DETECT ELEMENT');
 		}
@@ -97,6 +104,8 @@
 						css: 'css',
 						json: 'json',
 						go: 'go',
+						csv: 'csv',
+						xlsx: 'xlsx',
 					};
 
 					const MIME_TYPES_MAP = {
@@ -143,6 +152,8 @@
 						css: 'text/css',
 						json: 'application/json',
 						go: 'text/x-go',
+						csv: 'text/csv',
+						xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
 					};
 
 					let contentToDownload = '';
@@ -232,7 +243,10 @@
 						eventListenerAdded = true;
 					}
 
-					handleMediaQueryChange(mediaQuery);
+					handleMediaQueryChange(
+						mediaQuery,
+						getChatGPTFIleUploadButton(firstChildOfPromptTextarea)
+					);
 
 					script.onload = () => {
 						const chatExtContainer = document.createElement('app-container');
@@ -281,7 +295,7 @@
 		});
 
 		createAndInsertButton();
-		handleImageElement(chatGPTImageElementSelector);
+		handleChatGPTFileUploadElement(firstChildOfPromptTextarea);
 	});
 
 	observer.observe(document.body, {
@@ -291,6 +305,13 @@
 
 	// Polling Logic
 	const pollingInterval = setInterval(() => {
+		if (getChatGPTFIleUploadButton(chatGPTFIleUploadButton)) {
+			clearInterval(pollingInterval); // Stop polling
+			handleMediaQueryChange(
+				mediaQuery,
+				getChatGPTFIleUploadButton(firstChildOfPromptTextarea)
+			);
+		}
 		if (!markdownFound && pollingAttempts < maxPollingAttempts) {
 			createDownloadButtons();
 			pollingAttempts++;
