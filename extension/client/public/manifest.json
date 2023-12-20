@@ -1,7 +1,7 @@
 {
 	"manifest_version": 3,
 	"name": "ChatExt",
-	"description": "An extension that allows users to upload files to chatGPT",
+	"description": "Upload files to chatGPT. Either click or drag and drop files to upload. File size isn't an issue and you can upload up to 12 files at a time. You can also download files for any generated code.",
 	"version": "1.0.0",
 	"author": "Bilal Masters",
 	"permissions": ["activeTab"],
