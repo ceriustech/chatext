@@ -31,8 +31,11 @@
 
 	function handleChatGPTFileUploadElement(selector) {
 		fileUploadElement = document.querySelector(selector);
+		targetElement = document.querySelector(targetElementSelector);
+
 		if (fileUploadElement) {
-			fileUploadElement.style.marginLeft = '25px';
+			fileUploadElement.style.marginLeft = '30px';
+			targetElement.style.paddingLeft = '76px';
 		} else {
 			console.log('UNABLE TO DETECT ELEMENT');
 		}
@@ -269,7 +272,7 @@
 			}
 		});
 		createAndInsertButton();
-		handleChatGPTFileUploadElement(firstChildOfPromptTextarea);
+		handleChatGPTFileUploadElement(chatGPTFIleUploadButton);
 	});
 
 	observer.observe(document.body, {
