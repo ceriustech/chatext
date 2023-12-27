@@ -1,9 +1,10 @@
 (function () {
 	const targetElementSelector = '#prompt-textarea';
 	const chatGPTFIleUploadButton = "[aria-label='Attach files']";
-	const firstChildOfPromptTextarea = targetElementSelector
-		? targetElementSelector.firstElementChild
-		: null;
+	const firstChildOfPromptTextarea = document.querySelector(
+		targetElementSelector
+	)?.firstElementChild;
+
 	let targetElement;
 	let lastParentNode;
 	let fileUploadElement;
@@ -37,6 +38,101 @@
 		}
 	}
 
+	const DOC_TYPES_MAP = {
+		java: 'java',
+		cpp: 'cpp',
+		c: 'c',
+		graphql: 'graphql',
+		csharp: 'cs',
+		ruby: 'rb',
+		swift: 'swift',
+		kotlin: 'kt',
+		php: 'php',
+		sql: 'sql',
+		r: 'R',
+		perl: 'pl',
+		scala: 'scala',
+		rust: 'rs',
+		dart: 'dart',
+		lua: 'lua',
+		matlab: 'm',
+		shell: 'sh',
+		powershell: 'ps1',
+		haskell: 'hs',
+		cobol: 'cob',
+		fortran: 'f',
+		ada: 'adb', // Note: 'adb' for Ada body files, 'ads' for Ada spec files
+		scheme: 'scm',
+		erlang: 'erl',
+		d: 'd',
+		vhdl: 'vhd',
+		verilog: 'v',
+		assembly: 'asm',
+		clojure: 'clj',
+		groovy: 'groovy',
+		javascript: 'js',
+		jsx: 'jsx',
+		vue: 'vue',
+		typescript: 'ts',
+		tsx: 'tsx',
+		python: 'py',
+		html: 'html',
+		css: 'css',
+		json: 'json',
+		go: 'go',
+		csv: 'csv',
+		xlsx: 'xlsx',
+	};
+
+	const MIME_TYPES_MAP = {
+		java: 'text/x-java-source,java',
+		cpp: 'text/x-c',
+		h: 'text/x-c',
+		cs: 'text/plain', // MIME type for C# files
+		graphql: 'graphql',
+		rb: 'text/x-ruby',
+		swift: 'text/x-swift',
+		kt: 'text/x-kotlin',
+		php: 'application/x-httpd-php',
+		sql: 'application/sql',
+		R: 'text/x-r-source',
+		pl: 'text/x-perl',
+		scala: 'text/x-scala',
+		rs: 'text/rust',
+		dart: 'application/vnd.dart',
+		lua: 'text/x-lua',
+		m: 'text/x-matlab',
+		sh: 'application/x-sh',
+		ps1: 'application/x-powershell',
+		hs: 'text/x-haskell',
+		cob: 'text/x-cobol',
+		cbl: 'text/x-cobol',
+		f: 'text/x-fortran',
+		f90: 'text/x-fortran',
+		adb: 'text/plain', // Ada doesn't have a specific MIME type
+		ads: 'text/plain', // Ada doesn't have a specific MIME type
+		scm: 'text/x-scheme',
+		erl: 'text/x-erlang',
+		d: 'text/x-d',
+		vhd: 'text/x-vhdl',
+		v: 'text/x-verilog',
+		asm: 'text/x-asm',
+		clj: 'text/x-clojure',
+		groovy: 'text/x-groovy',
+		js: 'application/javascript',
+		jsx: 'text/jsx',
+		vue: 'text/vue',
+		ts: 'application/x-typescript',
+		tsx: 'text/tsx',
+		py: 'application/x-python',
+		html: 'text/html',
+		css: 'text/css',
+		json: 'application/json',
+		go: 'text/x-go',
+		csv: 'text/csv',
+		xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+	};
+
 	function createDownloadButtons() {
 		const markdownElements = document.querySelectorAll('.markdown');
 
@@ -51,99 +147,6 @@
 						return;
 					}
 
-					const DOC_TYPES_MAP = {
-						java: 'java',
-						cpp: 'cpp',
-						c: 'c',
-						csharp: 'cs',
-						ruby: 'rb',
-						swift: 'swift',
-						kotlin: 'kt',
-						php: 'php',
-						sql: 'sql',
-						r: 'R',
-						perl: 'pl',
-						scala: 'scala',
-						rust: 'rs',
-						dart: 'dart',
-						lua: 'lua',
-						matlab: 'm',
-						shell: 'sh',
-						powershell: 'ps1',
-						haskell: 'hs',
-						cobol: 'cob',
-						fortran: 'f',
-						ada: 'adb', // Note: 'adb' for Ada body files, 'ads' for Ada spec files
-						scheme: 'scm',
-						erlang: 'erl',
-						d: 'd',
-						vhdl: 'vhd',
-						verilog: 'v',
-						assembly: 'asm',
-						clojure: 'clj',
-						groovy: 'groovy',
-						javascript: 'js',
-						jsx: 'jsx',
-						vue: 'vue',
-						typescript: 'ts',
-						tsx: 'tsx',
-						python: 'py',
-						html: 'html',
-						css: 'css',
-						json: 'json',
-						go: 'go',
-						csv: 'csv',
-						xlsx: 'xlsx',
-					};
-
-					const MIME_TYPES_MAP = {
-						java: 'text/x-java-source,java',
-						cpp: 'text/x-c',
-						h: 'text/x-c',
-						cs: 'text/plain', // MIME type for C# files
-						rb: 'text/x-ruby',
-						swift: 'text/x-swift',
-						kt: 'text/x-kotlin',
-						php: 'application/x-httpd-php',
-						sql: 'application/sql',
-						R: 'text/x-r-source',
-						pl: 'text/x-perl',
-						scala: 'text/x-scala',
-						rs: 'text/rust',
-						dart: 'application/vnd.dart',
-						lua: 'text/x-lua',
-						m: 'text/x-matlab',
-						sh: 'application/x-sh',
-						ps1: 'application/x-powershell',
-						hs: 'text/x-haskell',
-						cob: 'text/x-cobol',
-						cbl: 'text/x-cobol',
-						f: 'text/x-fortran',
-						f90: 'text/x-fortran',
-						adb: 'text/plain', // Ada doesn't have a specific MIME type
-						ads: 'text/plain', // Ada doesn't have a specific MIME type
-						scm: 'text/x-scheme',
-						erl: 'text/x-erlang',
-						d: 'text/x-d',
-						vhd: 'text/x-vhdl',
-						v: 'text/x-verilog',
-						asm: 'text/x-asm',
-						clj: 'text/x-clojure',
-						groovy: 'text/x-groovy',
-						js: 'application/javascript',
-						jsx: 'text/jsx',
-						vue: 'text/vue',
-						ts: 'application/x-typescript',
-						tsx: 'text/tsx',
-						py: 'application/x-python',
-						html: 'text/html',
-						css: 'text/css',
-						json: 'application/json',
-						go: 'text/x-go',
-						csv: 'text/csv',
-						xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-					};
-
 					let contentToDownload = '';
 					let downloadFileName = 'downloaded-content';
 
@@ -154,24 +157,9 @@
 							const languageMatch = languageClass.match(/language-(\w+)/);
 							if (languageMatch) {
 								const language = languageMatch[1];
-								console.log(
-									'🚀 ~ file: content.js:164 ~ childElements.forEach ~ language:',
-									language
-								);
-
 								contentToDownload = codeElement.textContent;
-
 								const fileExtension = DOC_TYPES_MAP[language] || 'txt';
-								console.log(
-									'🚀 ~ file: content.js:167 ~ childElements.forEach ~ fileExtension:',
-									fileExtension
-								);
-
 								const mimeType = MIME_TYPES_MAP[fileExtension] || 'text/plain';
-								console.log(
-									'🚀 ~ file: content.js:170 ~ childElements.forEach ~ mimeType:',
-									mimeType
-								);
 								downloadFileName = `code.${fileExtension}`;
 
 								const downloadButton = document.createElement('a');
@@ -192,12 +180,6 @@
 
 								const container = document.createElement('div');
 								container.classList.add('chatext-download-btn-container');
-								container.style.display = 'flex';
-								container.style.justifyContent = 'space-between';
-								container.style.alignItems = 'flex-end';
-								if (childElement.tagName !== 'PRE') {
-									downloadButton.style.marginTop = '20px';
-								}
 
 								childElement.parentNode.insertBefore(container, childElement);
 								container.appendChild(childElement);
@@ -238,6 +220,7 @@
 
 					script.onload = () => {
 						const chatExtContainer = document.createElement('app-container');
+						createDownloadButtons();
 						// Insert after a delay
 						setTimeout(() => {
 							targetElement.insertAdjacentElement(
@@ -256,12 +239,16 @@
 										justify-content: center;
 										align-items: center;
 										border-radius: 25px;
+										margin: 10px 0 0 0;
 										padding: 5px;
 										width: 25px;
 										height: 25px;
 										background-color: #D1D5DB;
-										margin-left: 10px;
 										transition: transform 0.3s ease-in-out;
+									}
+
+									.chatext-download-btn:hover {
+										background-color: #fff;
 									}
 						 `;
 							document.head.appendChild(style);
@@ -281,7 +268,6 @@
 				createDownloadButtons();
 			}
 		});
-
 		createAndInsertButton();
 		handleChatGPTFileUploadElement(firstChildOfPromptTextarea);
 	});

@@ -30,6 +30,10 @@ class OpenModal extends LitElement {
 			transition: transform 0.3s ease-in-out;
 		}
 
+		.open-modal-btn:hover {
+			background-color: #fff;
+		}
+
 		.btn-plus-icon {
 			position: relative;
 			top: 1px;
