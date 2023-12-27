@@ -34,7 +34,7 @@
 		targetElement = document.querySelector(targetElementSelector);
 
 		if (fileUploadElement) {
-			fileUploadElement.style.marginLeft = '30px';
+			fileUploadElement.parentElement.parentElement.style.marginLeft = '30px';
 			targetElement.style.paddingLeft = '76px';
 		} else {
 			console.log('UNABLE TO DETECT ELEMENT');
