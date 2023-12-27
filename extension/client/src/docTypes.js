@@ -7,6 +7,7 @@ export const DOC_TYPES_MAP = {
 		cpp: 'cpp',
 		h: 'h',
 		cs: 'cs',
+		graphql: 'graphql',
 		rb: 'rb',
 		swift: 'swift',
 		kt: 'kt',
