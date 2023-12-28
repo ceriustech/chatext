@@ -34,7 +34,11 @@
 		targetElement = document.querySelector(targetElementSelector);
 
 		if (fileUploadElement) {
+<<<<<<< Updated upstream
 			fileUploadElement.parentElement.parentElement.style.marginLeft = '30px';
+=======
+			fileUploadElement.style.marginLeft = '30px';
+>>>>>>> Stashed changes
 			targetElement.style.paddingLeft = '76px';
 		} else {
 			console.log('UNABLE TO DETECT ELEMENT');
