@@ -166,6 +166,7 @@ class FileUploader extends LitElement {
 				border: `1px solid ${color}`,
 				borderRadius: '10px',
 				padding: '8px 12px',
+				maxWidth: '245px',
 				display: 'flex',
 				alignItems: 'center',
 				gap: '7px',
@@ -248,6 +249,10 @@ class FileUploader extends LitElement {
 			font-size: 1rem;
 			font-weight: 500;
 			margin: 0;
+			max-width: 200px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
 		}
 
 		.submit-file-btn-container {
