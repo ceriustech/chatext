@@ -68,6 +68,7 @@ class Modal extends LitElement {
 			width: 100%;
 			height: 100%;
 			overflow: hidden;
+			z-index: 20;
 		}
 
 		.modal-content {
@@ -76,10 +77,11 @@ class Modal extends LitElement {
 			margin: 15% auto;
 			padding: 20px;
 			min-height: 470px;
-			max-width: 365px;
+			max-width: 335px;
 			width: 100%;
 			position: relative;
-			right: 30.25rem;
+			right: 25.25rem;
+			bottom: 4rem;
 		}
 
 		.modal-header {
@@ -88,6 +90,7 @@ class Modal extends LitElement {
 			align-items: center;
 			justify-content: start;
 			gap: 7px;
+			position: relative;
 		}
 
 		.close-btn-wrapper {
@@ -97,8 +100,8 @@ class Modal extends LitElement {
 			align-items: center;
 			font-size: 12px;
 			position: absolute;
-			top: 13px;
-			right: 1rem;
+			top: 0;
+			right: 0.35rem;
 			background-color: #ecdfed;
 			padding: 5px;
 			height: 18px;
@@ -149,9 +152,9 @@ class Modal extends LitElement {
 							<app-icon></app-icon>
 						</div>
 						<h1 class="app-tittle">ChatExt</h1>
-					</div>
-					<div class="close-btn-wrapper">
-						<span class="close" @click=${this.closeModal}>&times;</span>
+						<div class="close-btn-wrapper">
+							<span class="close" @click=${this.closeModal}>&times;</span>
+						</div>
 					</div>
 					<div class="tab-view-container">
 						<div class="tab-container">

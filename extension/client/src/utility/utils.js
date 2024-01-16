@@ -1,4 +1,4 @@
-export const MAX_FILES = 12;
+export const MAX_FILES = 10;
 
 export const FILE_ICON_DESCRIPTION = {
 	type: {

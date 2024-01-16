@@ -166,7 +166,7 @@ class FileUploader extends LitElement {
 				border: `1px solid ${color}`,
 				borderRadius: '10px',
 				padding: '8px 12px',
-				maxWidth: '245px',
+				maxWidth: '215px',
 				display: 'flex',
 				alignItems: 'center',
 				gap: '7px',
