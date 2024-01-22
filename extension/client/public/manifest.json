@@ -2,7 +2,7 @@
 	"manifest_version": 3,
 	"name": "ChatExt - ChatGPT File Uploader",
 	"description": "Upload files to chatGPT, up to 10 at a time. Click or drag and drop files to upload. Download files for generated code.",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"author": "Bilal Masters",
 	"permissions": ["activeTab"],
 	"icons": {
