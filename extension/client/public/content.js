@@ -257,6 +257,8 @@
 							document.head.appendChild(style);
 						}, 100);
 					};
+				} else {
+					console.log('Unable to find target element.');
 				}
 			}
 		}
