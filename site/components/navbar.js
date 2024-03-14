@@ -2,9 +2,15 @@ import Link from 'next/link';
 import ThemeChanger from './DarkSwitch';
 import Image from 'next/image';
 import { Disclosure } from '@headlessui/react';
+import { BACKGROUND_COLORS } from '../css/colors';
 
 const Navbar = () => {
 	const navigation = ['Product', 'Features', 'Pricing', 'Company', 'Blog'];
+	const { bgPurple01 } = BACKGROUND_COLORS;
+
+	const styles = {
+		backgroundColor: bgPurple01,
+	};
 
 	return (
 		<div className="w-full">
@@ -67,7 +73,8 @@ const Navbar = () => {
 										))}
 										<Link
 											href="/"
-											className="w-full px-6 py-2 mt-3 text-center text-white bg-indigo-600 rounded-md lg:ml-5"
+											className="w-full px-6 py-2 mt-3 text-center text-white rounded-md lg:ml-5"
+											style={styles}
 										>
 											Get Started
 										</Link>
@@ -80,7 +87,7 @@ const Navbar = () => {
 
 				{/* menu  */}
 				<div className="hidden text-center lg:flex lg:items-center">
-					<ul className="items-center justify-end flex-1 pt-6 list-none lg:pt-0 lg:flex">
+					{/* <ul className="items-center justify-end flex-1 pt-6 list-none lg:pt-0 lg:flex">
 						{navigation.map((menu, index) => (
 							<li className="mr-3 nav__item" key={index}>
 								<Link
@@ -91,7 +98,7 @@ const Navbar = () => {
 								</Link>
 							</li>
 						))}
-					</ul>
+					</ul> */}
 				</div>
 
 				<div className="hidden mr-3 space-x-4 lg:flex nav__item">

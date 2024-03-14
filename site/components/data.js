@@ -11,23 +11,23 @@ import benefitOneImg from '../public/img/benefit-one.png';
 import benefitTwoImg from '../public/img/benefit-two.png';
 
 const benefitOne = {
-	title: 'Highlight your benefits',
-	desc: 'You can use this space to highlight your first benefit or a feature of your product. It can also contain an image or Illustration like in the example along with some bullet points.',
-	image: benefitOneImg,
+	title: 'Key Features',
+	desc: 'Elevate your chat interactions with ChatExt. Designed for anyone who uses ChatGPT, ChatExt is the perfect tool for anyone looking to make working with their digital workspace more convenient.',
+	image: benefitTwoImg,
 	bullets: [
 		{
-			title: 'Understand your customers',
-			desc: 'Then explain the first point breifly in one or two lines.',
+			title: 'Upload Multiple Files at Once',
+			desc: 'Upload up to 10 files at a time and download files directly within the chat interface.',
 			icon: <FaceSmileIcon />,
 		},
 		{
-			title: 'Improve acquisition',
-			desc: 'Here you can add the next benefit point.',
+			title: "File Size Isn't an Issue",
+			desc: 'Intelligent file chunking enables you to upload files regardless of how large they are.',
 			icon: <ChartBarSquareIcon />,
 		},
 		{
-			title: 'Drive customer retention',
-			desc: 'This will be your last bullet point in this section.',
+			title: 'Data Privacy',
+			desc: "ChatExt doesn't collect or save any uploaded or downloaded file data.",
 			icon: <CursorArrowRaysIcon />,
 		},
 	],

@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Container from './container';
 import heroImg from '../public/img/hero.png';
+import { BACKGROUND_COLORS } from '../css/colors';
 
 const Hero = () => {
 	const logoMap = [
@@ -10,6 +11,12 @@ const Hero = () => {
 			logo: <ChatGPTLogo />,
 		},
 	];
+
+	const { bgPurple01 } = BACKGROUND_COLORS;
+
+	const styles = {
+		backgroundColor: bgPurple01,
+	};
 
 	return (
 		<>
@@ -30,7 +37,8 @@ const Hero = () => {
 								href="https://web3templates.com/templates/chatext-landing-page-template-for-startups"
 								target="_blank"
 								rel="noopener"
-								className="px-8 py-4 text-lg font-medium text-center text-white bg-indigo-600 rounded-md "
+								className="px-8 py-4 text-lg font-medium text-center text-white rounded-md "
+								style={styles}
 							>
 								Download for Free
 							</a>
