@@ -1,4 +1,5 @@
 import stageFilesForUpload from './stageFilesForUpload';
+import { DOC_TYPES } from '../docTypes';
 
 async function handleDragDrop(event) {
 	// ... (no changes here)

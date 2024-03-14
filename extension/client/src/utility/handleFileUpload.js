@@ -3,7 +3,7 @@ import * as pdfjsLib from 'pdfjs-dist';
 import { GlobalWorkerOptions } from 'pdfjs-dist';
 
 // Setting the workerSrc for pdf.js
-GlobalWorkerOptions.workerSrc = `https://chatext-pdf-worker.s3.us-east-2.amazonaws.com/pdf.worker.js`;
+GlobalWorkerOptions.workerSrc = `https://cors-anywhere.herokuapp.com/https://chatext-pdf-worker.s3.us-east-2.amazonaws.com/pdf.worker.js`;
 // '../../node_modules/pdfjs-dist/build/pdf.worker';
 
 export const handleFileUpload = (file) => {

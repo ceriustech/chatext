@@ -1,9 +1,7 @@
-/** @type {import('next').NextConfig} */
-
-const nextConfig = {
-	basePath: '',
-	assetPrefix: '',
-	output: 'export',
+module.exports = {
+  i18n: {
+    locales: ["en"],
+    defaultLocale: "en",
+  },
+  output: "standalone",
 };
-
-module.exports = nextConfig;
