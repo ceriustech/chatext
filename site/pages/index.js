@@ -3,8 +3,7 @@ import Hero from '../components/hero';
 import Navbar from '../components/navbar';
 import SectionTitle from '../components/sectionTitle';
 
-import { benefitOne, benefitTwo } from '../components/data';
-import Video from '../components/video';
+import { benefitOne } from '../components/data';
 import Benefits from '../components/benefits';
 import Footer from '../components/footer';
 import Testimonials from '../components/testimonials';
@@ -16,11 +15,46 @@ const Home = () => {
 		<>
 			<Head>
 				<title>ChatExt</title>
+				<link rel="manifest" href="/site.webmanifest" />
+				<meta name="theme-color" content="#000000" />
 				<meta
 					name="description"
-					content="Chatext is a free landing page template built with next.js & Tailwind CSS"
+					content="ChatExt is a a Chrome extension that allows you to upload files to ChatGPT."
 				/>
-				<link rel="icon" href="/favicon.ico" />
+				<meta name="title" content="Upload files to ChatGPT | chatext.app" />
+				<meta property="og:url" content="https://chatext.app/" />
+				<meta property="og:title" content="ChatExt" />
+				<meta property="og:type" content="website" />
+				<meta
+					property="og:description"
+					content="ChatExt ChatGPT file uploader. Upload files to ChatGPT, up to 10 at a time."
+				/>
+				<meta
+					name="keywords"
+					content="ChatExt ChatGPT file uploader, ChatGPT, ChatGPT file uploader, ChatGPT file upload, ChatGPT file uploader, ChatGPT file upload extension, ChatGPT file uploader"
+				/>
+				<meta
+					name="description"
+					content="Chatext is a Chrome extension that allows you to upload files to ChatGPT."
+				/>
+				<link
+					rel="apple-touch-icon"
+					sizes="180x180"
+					href="/chatext-icon-180x180"
+				/>
+				<link
+					rel="icon"
+					type="image/png"
+					sizes="16x16"
+					href="/chatext-icon-16x16"
+				/>
+				<link
+					rel="icon"
+					type="image/png"
+					sizes="32x32"
+					href="/favicon-32x32.png"
+				/>
+				<link rel="icon" href="/chatext-icon.png" />
 			</Head>
 
 			<Navbar />
@@ -29,32 +63,19 @@ const Home = () => {
 				pretitle="chatext Benefits"
 				title=" Why should you use ChatExt"
 			>
-				chatext is a free landing page & marketing website template for startups
-				and indie projects. Its built with Next.js & TailwindCSS. And its
-				completely open-source.
+				Chatext provides a no hassle way to upload files into ChatGPT.
 			</SectionTitle>
 			<Benefits data={benefitOne} />
-			<Benefits imgPos="right" data={benefitTwo} />
-			<SectionTitle
-				pretitle="Watch a video"
-				title="Learn how to fullfil your needs"
-			>
-				This section is to highlight a promo or demo video of your product.
-				Analysts says a landing page with video has 3% more conversion rate. So,
-				don&apos;t forget to add one. Just like this.
-			</SectionTitle>
-			<Video />
 			<SectionTitle
 				pretitle="Testimonials"
 				title="Here's what our customers said"
 			>
-				Testimonails is a great way to increase the brand trust and awareness.
-				Use this section to highlight your popular customers.
+				ChatExt is currently helping many people streamline their workflow with
+				ChatGPT.
 			</SectionTitle>
 			<Testimonials />
 			<SectionTitle pretitle="FAQ" title="Frequently Asked Questions">
-				Answer your customers possible questions here, it will increase the
-				conversion rate as well as support or chat requests.
+				Here are a few answers to some general questions about ChatExt.
 			</SectionTitle>
 			<Faq />
 			<Cta />
