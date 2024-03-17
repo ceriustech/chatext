@@ -4,7 +4,7 @@ import Container from './container';
 
 import userOneImg from '../public/img/user-1.jpg';
 import userTwoImg from '../public/img/user-2.png';
-import userThreeImg from '../public/img/user3.jpg';
+import userThreeImg from '../public/img/user-3.jpg';
 
 const Testimonials = () => {
 	const styles = {
@@ -42,14 +42,14 @@ const Testimonials = () => {
 				<div className="">
 					<div className="flex flex-col justify-between w-full h-full bg-gray-100 px-14 rounded-2xl py-14 dark:bg-trueGray-800">
 						<p className="text-2xl leading-normal ">
-							This is an <Mark>awesome</Mark> landing page template I&apos;ve
-							seen. I would use this for anything.
+							I'm able to upload files directly into ChatGPT with no issue. I{' '}
+							<Mark>highly</Mark> recommend adding this extension.
 						</p>
 
 						<Avatar
 							image={userThreeImg}
-							name="Gabrielle Winn"
-							title="Co-founder of Acme Inc"
+							name="CeriusGeek"
+							title="Content Creator"
 						/>
 					</div>
 				</div>

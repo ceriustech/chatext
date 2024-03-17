@@ -10,6 +10,12 @@ import {
 import benefitOneImg from '../public/img/benefit-one.png';
 import benefitTwoImg from '../public/img/benefit-two.png';
 
+const URL_DATA = {
+	cta: {
+		url: 'https://chromewebstore.google.com/detail/chatext-chatgpt-file-uplo/oecbfiiiankkbdjjaobhngdagjlijdja',
+	},
+};
+
 const benefitOne = {
 	title: 'Key Features',
 	desc: 'Elevate your chat interactions with ChatExt. Designed for anyone who uses ChatGPT, ChatExt is the perfect tool for anyone looking to make working with their digital workspace more convenient.',
@@ -56,4 +62,4 @@ const benefitTwo = {
 	],
 };
 
-export { benefitOne, benefitTwo };
+export { benefitOne, benefitTwo, URL_DATA };
