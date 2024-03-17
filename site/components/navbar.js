@@ -64,7 +64,7 @@ const Navbar = () => {
 
 								<div className="flex flex-wrap w-full my-5 lg:hidden">
 									<>
-										{navigation.map((item, index) => (
+										{/* {navigation.map((item, index) => (
 											<Link
 												key={index}
 												href="/"
@@ -72,7 +72,7 @@ const Navbar = () => {
 											>
 												{item}
 											</Link>
-										))}
+										))} */}
 										<a
 											href={cta.url}
 											target="_blank"
@@ -106,14 +106,14 @@ const Navbar = () => {
 				</div>
 
 				<div className="hidden mr-3 space-x-4 lg:flex nav__item">
-					<Link
+					<a
 						href={cta.url}
 						target="_blank"
 						className="px-6 py-2 text-white bg-indigo-600 rounded-md md:ml-5"
 						style={styles}
 					>
 						Get Started
-					</Link>
+					</a>
 
 					<ThemeChanger />
 				</div>
